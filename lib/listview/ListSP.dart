@@ -30,6 +30,11 @@ class QLSanPham extends ChangeNotifier{
   }
   void capnhat(SanPham moi, SanPham cu){
     // cap nhat
+    cu.ten=moi.ten;
+    cu.gia=moi.gia;
+    cu.url=moi.url;
+    // list.remove(cu);
+    // list.add(moi);
     notifyListeners();
   }
   void themmoi(SanPham sanpham){
@@ -39,7 +44,6 @@ class QLSanPham extends ChangeNotifier{
 }
 QLSanPham sp = QLSanPham();
 
-
 class ListSP extends StatelessWidget {
   late BuildContext listViewContext;
 
@@ -48,6 +52,19 @@ class ListSP extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Danh sách sản phẩm"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: (){
+              Navigator.push(
+                  context,
+                  // MaterialPageRoute(builder: (context)=>AddScreen())
+                  MaterialPageRoute(builder: (context)=>Themmoi())
+              );
+            },
+          )
+        ],
+
       ),
       body: Consumer<QLSanPham>(
         builder: (context, sp, child){
@@ -67,7 +84,7 @@ class ListSP extends StatelessWidget {
                 children: [
                   SlidableAction(
                     onPressed: (context) async {
-                      String? confirm = await showConfirmDialog(listViewContext, "ban cos muon xoa san pham");
+                      String? confirm = await showConfirmDialog(listViewContext, "ban co muon xoa san pham");
                       if(confirm=="ok"){
                         var provider= listViewContext.read<QLSanPham>();
                         provider.xoaSP(index);
@@ -79,15 +96,18 @@ class ListSP extends StatelessWidget {
                     label: 'Xóa',
                   ),
                   SlidableAction(
-                    onPressed: null,
+                    onPressed: (context) {
+                      Route route = MaterialPageRoute(builder: (context) => Capnhat(sp: sp.list[index],));
+                      Navigator.push(context, route);
+                    },
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
                     icon: Icons.addchart_outlined,
                     label: 'Cập nhật',
                   ),
                   SlidableAction(
-                    onPressed: (context) {
-                      Route route = MaterialPageRoute(builder: (context) => Themmoi());
+                    onPressed:(context) {
+                      Route route = MaterialPageRoute(builder: (context) => Xem(sp: sp.list[index],));
                       Navigator.push(context, route);
                     },
                     backgroundColor: Colors.green,
@@ -112,7 +132,6 @@ class Themmoi extends StatelessWidget {
   TextEditingController txtName=TextEditingController();
   TextEditingController txtSoluong=TextEditingController();
   TextEditingController txtUrl=TextEditingController();
-  String? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +188,109 @@ class Themmoi extends StatelessWidget {
       context.read<QLSanPham>().themmoi(m);
       Navigator.pop(context);
     }
+}
+
+class Xem extends StatelessWidget {
+  SanPham? sp;
+  Xem({Key? key, this.sp}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Xem"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Ten:" + sp!.ten),
+            Text("Gia:" + sp!.gia.toString()),
+            Text("Url:" + sp!.url),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Quay lai"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Capnhat extends StatelessWidget {
+  SanPham? sp;
+  Capnhat({Key? key, this.sp}) : super(key: key);
+  GlobalKey <FormState> formState = GlobalKey<FormState>();
+  // SanPham m = SanPham(url: '',ten: "", gia: 0);
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtSoluong=TextEditingController();
+  TextEditingController txtUrl=TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    txtName=TextEditingController(text: sp!.ten);
+    txtSoluong=TextEditingController(text: sp!.gia.toString());
+    txtUrl=TextEditingController(text: sp!.url);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Text"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: formState,
+          autovalidateMode: AutovalidateMode.disabled,
+          child: Column(
+            children: [
+              TextFormField(
+                  controller: txtName,
+                  // onSaved: (newValue) => m.ten = newValue!,
+                  decoration: InputDecoration(
+                    labelText: 'Tên Mặt hàng',
+                  )
+              ),
+              TextFormField(
+                  controller: txtSoluong,
+                  keyboardType: TextInputType.number,
+                  // onSaved: (newValue) => m.gia= int.parse(newValue!),
+                  decoration: InputDecoration(
+                    labelText: 'Giá',
+                  )
+              ),
+              TextFormField(
+                  controller: txtUrl,
+                  // onSaved: (newValue) => m.url = newValue!,
+                  decoration: InputDecoration(
+                    labelText: 'Url',
+                  )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      SanPham m = SanPham(url: txtUrl.text,ten: txtName.text, gia: int.parse(txtSoluong.text));
+                      context.read<QLSanPham>().capnhat(m,sp!);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Save"),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  _save(BuildContext context) {
+    SanPham m = SanPham(url: txtUrl.text,ten: txtName.text, gia: int.parse(txtSoluong.text));
+    context.read<QLSanPham>().capnhat(m,sp!);
+    Navigator.pop(context);
+  }
 }
 
 
