@@ -33,8 +33,6 @@ class QLSanPham extends ChangeNotifier{
     cu.ten=moi.ten;
     cu.gia=moi.gia;
     cu.url=moi.url;
-    // list.remove(cu);
-    // list.add(moi);
     notifyListeners();
   }
   void themmoi(SanPham sanpham){
@@ -285,11 +283,6 @@ class Capnhat extends StatelessWidget {
         ),
       ),
     );
-  }
-  _save(BuildContext context) {
-    SanPham m = SanPham(url: txtUrl.text,ten: txtName.text, gia: int.parse(txtSoluong.text));
-    context.read<QLSanPham>().capnhat(m,sp!);
-    Navigator.pop(context);
   }
 }
 

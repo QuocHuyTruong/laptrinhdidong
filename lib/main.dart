@@ -5,6 +5,9 @@ import 'package:laptrinhdidong/gridview/GridView.dart';
 import 'package:laptrinhdidong/listview/Myapp.dart';
 import 'package:laptrinhdidong/photoalbum/Photoalbum.dart';
 
+import 'BaiTap_Rss/RSS_Page.dart';
+import 'imagepicker/Imagepicker.dart';
+import 'jsonphoto/PhotoPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  ListSanPham(),
+      home:  RSS_Page(),
     );
   }
 }
