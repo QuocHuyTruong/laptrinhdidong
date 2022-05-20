@@ -2,11 +2,11 @@ import 'package:http/http.dart'as http;
 import 'dart:convert';
 
 import 'Photo.dart';
-Future<List<dynamic>> fetchData() async{
-  var url = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+Future<List<dynamic>> fetchData(String data) async{
+  var url = Uri.parse('https://jsonplaceholder.typicode.com/$data');
   var response = await http.get(url);
   if(response.statusCode==200)
-    return jsonDecode(response.body) as List;
+     return jsonDecode(response.body);
   else
     return[];
 }

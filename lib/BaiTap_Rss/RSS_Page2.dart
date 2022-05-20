@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 class RSS_Page2 extends StatefulWidget {
   final url;
-  RSS_Page2(this.url);
+  const RSS_Page2(this.url);
   @override
   createState() => _RSS_Page2State(this.url);
 }
@@ -14,7 +14,7 @@ class _RSS_Page2State extends State<RSS_Page2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("ahihi"),
+          title: Text("Doc bao"),
         ),
         body: Column(
           children: [
@@ -22,8 +22,10 @@ class _RSS_Page2State extends State<RSS_Page2> {
                 child: WebView(
                     key: _key,
                     javascriptMode: JavascriptMode.unrestricted,
-                    initialUrl: _url))
+                    initialUrl: _url)
+            )
           ],
-        ));
+        ),
+    );
   }
 }

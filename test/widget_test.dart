@@ -10,6 +10,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:laptrinhdidong/BaiTap_Rss/RSS_Helper.dart';
+import 'package:laptrinhdidong/Group/Movie_data.dart';
+import 'package:laptrinhdidong/Movie/models/item_model.dart';
+import 'package:laptrinhdidong/Movie/resources/movie_api_provider.dart';
 import 'package:laptrinhdidong/jsonphoto/Listdata.dart';
 import 'package:laptrinhdidong/jsonphoto/Photo.dart';
 
@@ -33,15 +36,39 @@ void main() {
   //   expect(find.text('1'), findsOneWidget);
   // });
   // test("description", () async{
-  //   List data =await fetchData();
-  //   print(data.map((item) => Photo.fromJson(item)).toList());
+  //   String datafetch = 'photos';
+  //   List data =await fetchData(datafetch);
+  //   // print(data.map((item) => Photo.fromJson(item)).toList());
+  //   print(data.toString());
   // });
   // test("test_thoi", () async{
   //   var data= await fetchPhotos();
   //   print(data.toString());
   // });
-  test("ahihi", ()async {
-    var data = await RSS_Helper.fetchRSS();
-    print(data.toString());
+  // test("ahihi", ()async {
+  //   var data = await RSS_Helper.fetchRSS();
+  //   print(data.toString());
+  // });
+  // test("description1", () async{
+  //   String datafetch = 'batman';
+  //   var data =(await fetchDataMovie(datafetch));
+  //   print(data);
+  // });
+  // test("description2", () async{
+  //   String datafetch = 'batman';
+  //   var data = await MovieApiProvider().fetchMovieList(datafetch);
+  //   print(data);
+  // });
+  // test("description3", () async{
+  //   ItemModel data = await MovieApiProvider().fetchMovieList();
+  //   print(data);
+  // });
+  // test("bai", () async{
+  //   var data = await fetchMovieList();
+  //   print(data);
+  // });
+  test("bai", () async{
+    var data = await fetchMovieDetail(785985);
+    print(data);
   });
 }

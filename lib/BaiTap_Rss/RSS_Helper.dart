@@ -7,6 +7,7 @@ import 'package:xml2json/xml2json.dart';
 
 class RSS_Helper{
   static String _rssURL = "https://vnexpress.net/rss/tin-moi-nhat.rss";
+  // static String _rssURL="https://api.themoviedb.org/3/search/movie?api_key=e9f6f99d3bc6855bd887c4af111538b6&query=superman";
   static Future<List<RSSItem>?> readVNExpressRSS() async{
     var rssJsons = await fetchRSS();
     if(rssJsons != null){

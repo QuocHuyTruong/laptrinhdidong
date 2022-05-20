@@ -23,7 +23,7 @@ class _RSS_PageState extends State<RSS_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title:Text("Doc bao khong tot cho suc khoe"),
+        title:Text("Doc bao"),
       ),
       body: RefreshIndicator(
         onRefresh: ()  async {
@@ -34,8 +34,8 @@ class _RSS_PageState extends State<RSS_Page> {
           future: rssItem,
           builder: (context, snapshot){
             if(snapshot.hasError) {
-              print("Lỗi xảy ra" + rssItem.toString());
-              return Text("Lỗi xảy ra");
+              print("Error" + rssItem.toString());
+              return Text("Error");
             }
             return snapshot.hasData
                 ?

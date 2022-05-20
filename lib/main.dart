@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/baitapcoban1/Counter.dart';
-import 'package:laptrinhdidong/form/Form.dart';
-import 'package:laptrinhdidong/gridview/GridView.dart';
-import 'package:laptrinhdidong/listview/Myapp.dart';
-import 'package:laptrinhdidong/photoalbum/Photoalbum.dart';
 
-import 'BaiTap_Rss/RSS_Page.dart';
-import 'imagepicker/Imagepicker.dart';
-import 'jsonphoto/PhotoPage.dart';
+import 'Firebase/page_firebase_app.dart';
+import 'Group/Movie_page.dart';
+import 'Movie/ui/movie_list.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
-      home:  RSS_Page(),
+      home:  MoviePageTrailer(),
     );
   }
 }

@@ -43,8 +43,9 @@ class _PhotosPageStateState extends State<PhotosPageState> {
 }
 
 class Photo_hepper{
+  static String datafetch = 'photos';
    static Future<List<Photo>> readPhoto() async{
-    List data =await fetchData();
+    List data =await fetchData(datafetch);
     return data.map((item) => Photo.fromJson(item)).toList();
   }
 }

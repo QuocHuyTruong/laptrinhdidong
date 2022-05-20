@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "693650211563",
+    "firebase_url": "https://myfirebase-91de0-default-rtdb.firebaseio.com",
+    "project_id": "myfirebase-91de0",
+    "storage_bucket": "myfirebase-91de0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693650211563:android:1045c24c0aeca3d227b4ae",
+        "android_client_info": {
+          "package_name": "vn.edu.ntu.quochuy.laptrinhdidong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693650211563-vsiv0tbtp79j9laeih9770fmhvutu1ut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl-CQKcTMm_pqxNV3qtJyWzIBsOqFFRXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693650211563-vsiv0tbtp79j9laeih9770fmhvutu1ut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
