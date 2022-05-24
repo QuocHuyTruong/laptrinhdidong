@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Group/Movie_page.dart';
-import 'Group/Movie_search_app.dart';
-import 'Group/Video_youtube.dart';
+import 'Group/Bottom_nav_bar.dart';
 
 
 
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch:Colors.grey ,
       ),
-      home:  SearchMovie(),
+      home:  Movie(),
     );
   }
 }

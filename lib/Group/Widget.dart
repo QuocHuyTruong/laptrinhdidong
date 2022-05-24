@@ -39,5 +39,5 @@ Widget trailerLayout(data, context) {
     );
   }
   else
-    return Text("kh co data");
+    return Text("Không có trailer",style: TextStyle(fontSize: 20,color: Colors.white),);
 }

@@ -61,7 +61,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
                             Text(snapshot.data!.results[index].vote_average.toString(), style: TextStyle(fontSize: 15, color: Colors.white70),),
                             Icon(Icons.star, color: Colors.amberAccent,),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   );

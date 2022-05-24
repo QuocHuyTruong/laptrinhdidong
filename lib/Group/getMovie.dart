@@ -41,7 +41,7 @@ class _getMovieState extends State<getMovie> {
             Text(_data.vote_average.toString(), style: TextStyle(fontSize: 15, color: Colors.white70),),
             Icon(Icons.star, color: Colors.amberAccent,),
           ],
-        )
+        ),
       ],
     );
   }
