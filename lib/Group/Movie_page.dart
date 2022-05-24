@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
-import 'package:laptrinhdidong/Group/MovieList.dart';
 
 import 'Movie_data.dart';
 import 'Movie_detail.dart';
+import 'Widget.dart';
 
 class MoviePageTrailer extends StatefulWidget {
   const MoviePageTrailer({Key? key}) : super(key: key);
@@ -24,10 +24,10 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ahihi"),
+        title: const Text("Phim mới nhất"),
       ),
       body: Container(
-        color: Colors.black54,
+        color: Color.fromRGBO(48,48,48, 1),
         child: FutureBuilder<Item_movie>(
           future: movie,
           builder: (context, snapshot){
@@ -45,20 +45,20 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: snapshot.data!.results[index].id,anh: snapshot.data!.results[index].backdrop_path,));
+                            Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: snapshot.data!.results[index].id,dataphim: snapshot.data!.results[index],));
                             Navigator.push(context, route);
                           },
                           child: Container(
                             height: 550,
                             width: 500,
-                            child: _getImage(snapshot.data!.results[index].poster_path),
+                            child: getImage(snapshot.data!.results[index].poster_path),
                           ),
                         ),
                         Text(snapshot.data?.results[index].title ?? "", style: TextStyle(fontSize: 24, color: Colors.white70),),
                         Row(
                           children: [
-                            Text("Dang gia:"),
-                            Text(snapshot.data!.results[index].vote_average.toString(), style: TextStyle(fontSize: 15),),
+                            const Text("Đánh giá:",style: TextStyle(fontSize: 15, color: Colors.white70),),
+                            Text(snapshot.data!.results[index].vote_average.toString(), style: TextStyle(fontSize: 15, color: Colors.white70),),
                             Icon(Icons.star, color: Colors.amberAccent,),
                           ],
                         )
@@ -78,19 +78,4 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   }
 }
 
-Widget _getImage(String? url){
-  if (url!= null)
-    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.fill,);
-  else
-    return Center(
-      child: Icon(Icons.image),
-    );
-}
 
-// class Movie_hepper{
-//   static String datafetch = 'photos';
-//   static Future<List<Photo>> readPhoto() async{
-//     List data =await fetchData(datafetch);
-//     return data.map((item) => Photo.fromJson(item)).toList();
-//   }
-// }

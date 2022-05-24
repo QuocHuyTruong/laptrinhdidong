@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'Firebase/page_firebase_app.dart';
 import 'Group/Movie_page.dart';
-import 'Movie/ui/movie_list.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'Group/Movie_search_app.dart';
+import 'Group/Video_youtube.dart';
 
 
 
@@ -18,10 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch:Colors.grey ,
       ),
-      home:  MoviePageTrailer(),
+      home:  SearchMovie(),
     );
   }
 }
@@ -70,3 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
+
+

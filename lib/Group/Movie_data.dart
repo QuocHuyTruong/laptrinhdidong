@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart'as http;
 import 'package:laptrinhdidong/Group/Item_movie.dart';
+import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
 
 Future<Item_movie> fetchMovieList() async {
   var response ;
@@ -18,13 +19,27 @@ Future<Item_movie> fetchMovieList() async {
   }
 }
 
-Future fetchMovieDetail(int id) async {
+Future<Item_detail> fetchMovieDetail(int id) async {
   var response ;
-  var uri = Uri.parse("http://api.themoviedb.org/3/movie/${id}?api_key=e9f6f99d3bc6855bd887c4af111538b6");
+  var uri = Uri.parse("https://api.themoviedb.org/3/movie/${id}/videos?api_key=e9f6f99d3bc6855bd887c4af111538b6");
   response = await http.get (uri);
 
   if(response.statusCode == 200){
-    return json.decode(response.body);
+    return Item_detail.fromJson(json.decode(response.body));
+  }
+  else {
+    throw Exception(" Lỗi khi load Json");
+  }
+}
+
+Future<Item_movie> fetchSearchMovie(String query) async {
+  var response ;
+
+  var uri = Uri.parse("https://api.themoviedb.org/3/search/movie?api_key=e9f6f99d3bc6855bd887c4af111538b6&query='${query}");
+  response = await http.get (uri);
+
+  if(response.statusCode == 200){
+    return Item_movie.fromJson(json.decode(response.body));
   }
   else {
     throw Exception(" Lỗi khi load Json");
