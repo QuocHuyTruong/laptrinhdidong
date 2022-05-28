@@ -43,6 +43,12 @@ class _MovieState extends State<Movie> {
             activeColor: Colors.purpleAccent,
             textAlign: TextAlign.center,
           ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.star),
+            title: Text('Yêu thích'),
+            activeColor: Colors.purpleAccent,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

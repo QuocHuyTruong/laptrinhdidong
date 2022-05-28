@@ -41,10 +41,10 @@ void main() {
   //   // print(data.map((item) => Photo.fromJson(item)).toList());
   //   print(data.toString());
   // });
-  // test("test_thoi", () async{
-  //   var data= await fetchPhotos();
-  //   print(data.toString());
-  // });
+  test("test_thoi", () async{
+    var data= await fetchPhotos();
+    print(data.toString());
+  });
   // test("ahihi", ()async {
   //   var data = await RSS_Helper.fetchRSS();
   //   print(data.toString());
@@ -67,8 +67,13 @@ void main() {
   //   var data = await fetchMovieList();
   //   print(data);
   // });
-  test("bai", () async{
-    var data = await fetchMovieDetail(785985);
-    print(data);
-  });
+  // test("bai", () async{
+  //   var data = await fetchMovieDetail(785985);
+  //   print(data);
+  // });
+  // test("baifavorite", () async{
+  //   // var data = await fetchFavorite();
+  //   var data = "asasad";
+  //   print(data);
+  // });
 }

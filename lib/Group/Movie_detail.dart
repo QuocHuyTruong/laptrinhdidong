@@ -18,6 +18,7 @@ class Moviedetail extends StatefulWidget {
 class _MoviedetailState extends State<Moviedetail> {
   Result datamovie;
   int id;
+  var favorite;
   var data;
   _MoviedetailState(this.id, this.datamovie);
 
@@ -25,6 +26,12 @@ class _MoviedetailState extends State<Moviedetail> {
   void initState() {
     super.initState();
     data = fetchMovieDetail(id);
+    favorite = false;
+  }
+  void setfavorite(){
+    setState(() {
+      favorite = !favorite;
+    });
   }
 
 
@@ -97,6 +104,11 @@ class _MoviedetailState extends State<Moviedetail> {
                                 fontSize: 18.0,
                                 color: Colors.white
                               ),
+                            ),
+                            IconButton(
+                              icon: Icon(favorite ? Icons.star_border : Icons.star),
+                              color: Colors.brown,
+                              onPressed: setfavorite,
                             ),
                           ],
                         ),

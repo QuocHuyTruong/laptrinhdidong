@@ -23,9 +23,9 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Phim mới nhất"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Phim mới nhất"),
+      // ),
       body: Container(
         color: Color.fromRGBO(48,48,48, 1),
         child: FutureBuilder<Item_movie>(

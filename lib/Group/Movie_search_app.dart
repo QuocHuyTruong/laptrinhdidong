@@ -46,9 +46,9 @@ class _SearchMovieState extends State<SearchMovie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Tìm kiếm"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("Tìm kiếm"),
+      // ),
             body: Container(
               color: Color.fromRGBO(48,48,48, 1),
               child: ListView(

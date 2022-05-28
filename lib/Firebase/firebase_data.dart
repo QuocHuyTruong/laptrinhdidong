@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SinhVien{
-  String? id,ten,lop,que_quan,nam_sinh;
+  String? id,ten,lop,que_quan,nam_sinh,anh;
 
-  SinhVien({required this.id,required this.ten, this.lop, this.que_quan, this.nam_sinh});
+  SinhVien({required this.id,required this.ten, this.lop, this.que_quan, this.nam_sinh,this.anh});
   
   factory SinhVien.fromJson(Map<String,dynamic> json){
     return SinhVien(
@@ -11,7 +11,8 @@ class SinhVien{
         ten: json['ten'] as String,
         lop: json['que_quan'] as String,
         nam_sinh: json['nam_sinh'] as String,
-        que_quan: json['que_quan']as String
+        que_quan: json['que_quan']as String,
+        anh: json['anh']
     );
   }
 
@@ -22,6 +23,7 @@ class SinhVien{
       "lop":lop,
       "que_quan":que_quan,
       "nam_sinh":nam_sinh,
+      "anh": anh
     };
   }
 }
@@ -47,8 +49,8 @@ class SinhVienSnapshot{
     await docRef!.delete();
   }
 
-  static void addNew(SinhVien sv){
-    FirebaseFirestore.instance.collection("SinhVien").add(sv.toJson());
+  static Future<DocumentReference> addNew (SinhVien sv)async {
+    return await FirebaseFirestore.instance.collection("SinhVien").add(sv.toJson());
   }
 
   static Stream<List<SinhVienSnapshot>> getAllSinhVien(){
