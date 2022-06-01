@@ -22,11 +22,10 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Phim mới nhất"),
-      // ),
+      appBar: AppBar(
+        title: const Text("Phim mới nhất"),
+      ),
       body: Container(
-        color: Color.fromRGBO(48,48,48, 1),
         child: FutureBuilder<Item_movie>(
           future: movie,
           builder: (context, snapshot){
@@ -36,30 +35,17 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
             }
             return snapshot.hasData
                 ? Container(
+              padding: EdgeInsets.all(12),
               child: GridView.count(
-                  crossAxisCount: 3,
+                childAspectRatio: (1/1.56),
+                crossAxisCount: 1,
+                children: List.generate(snapshot.data!.results.length, (index){
+                  return buildBurgerscolum(snapshot);
+                }),
 
-                  children: List.generate(snapshot.data!.results.length, (index) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            child: getImage(snapshot.data!.results[index].poster_path),
-                          ),
-                        ),
-                        Text(snapshot.data!.results[index].title ?? "",),
-                        Row(
-                          children: [
-                            const Text("Đánh giá:",),
-                            Text(snapshot.data!.results[index].vote_average.toString(),),
-                            Icon(Icons.star, color: Colors.amberAccent,),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                  )
               ),
+              //child: buildBurgers(snapshot),
+              //child: layouttest(snapshot),
             )
                 : Center(child: CircularProgressIndicator(),);
           },
@@ -67,6 +53,97 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
       ),
     );
   }
+
+
+  Widget? layouttest(snapshot){
+    return
+      ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          padding: EdgeInsets.all(8),
+          color: Colors.black,
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: getImage(snapshot.data!.results[0].poster_path),
+              ),
+              const SizedBox(width: 8,),
+              Expanded(child: Text(snapshot.data!.results[0].title ?? "",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.white),)),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  color: Colors.white30,
+                  width: 80,
+                  height: 80,
+                  child: Center(
+                    child: Text(snapshot.data!.results[0].title ?? "",),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+  }
+
+  Widget buildBurger(snapshot) {
+        return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        color: Color(0xFF010101),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            getImage(snapshot.data!.results[0].poster_path),
+            Text(
+              'Beef Burger',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Onion with cheese',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '\$24.00',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBurgers(snapshot) => Row(
+    children: [
+      Expanded(child: buildBurger(snapshot)),
+      const SizedBox(width: 5),
+      Expanded(child: buildBurger(snapshot)),
+    ],
+  );
+
+  Widget buildBurgerscolum(snapshot) => Column(
+    children: [
+      Expanded(child: buildBurgers(snapshot)),
+      const SizedBox(width: 5),
+      Expanded(child: buildBurgers(snapshot)),
+    ],
+  );
+
 }
+
+
 
 

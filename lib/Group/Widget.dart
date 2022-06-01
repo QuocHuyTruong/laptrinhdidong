@@ -19,7 +19,7 @@ Widget movieLayout(data) {
 
 Widget getImage(String? url){
   if (url!= null)
-    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.cover,);
+    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.contain,width: 200,height: 250,);
   else
     return Center(
       child: Icon(Icons.image),
@@ -40,3 +40,4 @@ Widget trailerLayout(data, context) {
   else
     return Text("Không có trailer",style: TextStyle(fontSize: 20,color: Colors.white),);
 }
+
