@@ -38,6 +38,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
                 ? Container(
               child: GridView.count(
                   crossAxisCount: 3,
+
                   children: List.generate(snapshot.data!.results.length, (index) {
                     return Column(
                       children: [
