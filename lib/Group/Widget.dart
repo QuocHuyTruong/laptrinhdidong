@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 import 'Video_youtube.dart';
 import 'getMovie.dart';
 
-Widget movieLayout(data,i) {
-  print(i);
+Widget movieLayout(data) {
   if (data.results.length > 0) {
     return Column(
       children: [

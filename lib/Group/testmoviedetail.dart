@@ -30,18 +30,7 @@ class _MoviedetailState extends State<Moviedetail> {
   void initState() {
     super.initState();
     data = fetchMovieDetail(id);
-    favorite = false;
-    FavoriteSnapshot.getAllFavorite().forEach((element) {
-      print(element[0].favorite!.id.toString() + "day la test");
-      print(element.length.toString() + "day la test");
-      for(int i = 0; i<element.length;i++){
-        if(element[i].favorite!.id ==id){
-          setState((){
-            favorite = true;
-          });
-        }
-      }
-    });
+
   }
 
   void setfavorite(){
@@ -114,9 +103,9 @@ class _MoviedetailState extends State<Moviedetail> {
                         Text(
                           datamovie.title.toString(),
                           style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
                           ),
                         ),
                         Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
@@ -132,8 +121,8 @@ class _MoviedetailState extends State<Moviedetail> {
                             Text(
                               datamovie.vote_average.toString(),
                               style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white
+                                  fontSize: 18.0,
+                                  color: Colors.white
                               ),
                             ),
                             Container(
@@ -142,8 +131,8 @@ class _MoviedetailState extends State<Moviedetail> {
                             Text(
                               datamovie.release_date.toString(),
                               style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white
+                                  fontSize: 18.0,
+                                  color: Colors.white
                               ),
                             ),
                             IconButton(
@@ -159,9 +148,9 @@ class _MoviedetailState extends State<Moviedetail> {
                         Text(
                           "Trailer",
                           style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
                           ),
                         ),
                         Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),

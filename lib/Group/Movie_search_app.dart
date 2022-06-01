@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:laptrinhdidong/Group/getMovie.dart';
+import 'package:laptrinhdidong/Group/testlayout.dart';
 
 import 'Item_movie.dart';
 import 'Movie_data.dart';
@@ -14,24 +16,18 @@ class SearchMovie extends StatefulWidget {
 class _SearchMovieState extends State<SearchMovie> {
   TextEditingController txtName = TextEditingController();
   var data;
-  late int i;
-  late var test;
 
 
   @override
   void initState() {
     super.initState();
-    i=0;
     data = fetchSearchMovie("Batman");
-    test = "Batman";
   }
 
   void _incrementCounter(){
     setState((){
 
       data = fetchSearchMovie(txtName.text);
-      i++ ;
-      test = txtName.text;
 
     });
   }
@@ -77,7 +73,7 @@ class _SearchMovieState extends State<SearchMovie> {
                             }else if(snapshot.connectionState==ConnectionState.done){
                               return snapshot.hasData ?
                               Container(
-                                  child: movieLayout(snapshot.data,i),
+                                   child: movieLayout(snapshot.data),
                               )
                                   :
                                 Center(child: CircularProgressIndicator(),);

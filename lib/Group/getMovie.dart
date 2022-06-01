@@ -22,7 +22,7 @@ class _getMovieState extends State<getMovie> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: <Widget>[
         GestureDetector(
           onTap: () {
             Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: _data.id,dataphim: _data,));
@@ -44,6 +44,7 @@ class _getMovieState extends State<getMovie> {
         ),
       ],
     );
+
   }
 }
 

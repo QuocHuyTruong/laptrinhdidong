@@ -1,6 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import '../testjson/json_page.dart';
 import 'Movie_page.dart';
 import 'Movie_search_app.dart';
 
@@ -18,7 +20,24 @@ class _MovieState extends State<Movie> {
   final _widgetOptions = [
     MoviePageTrailer(),
     SearchMovie(),
+    Test(),
   ];
+
+
+  @override
+  void initState() {
+    super.initState();
+    _khoiTaoFirebase();
+  }
+
+  _khoiTaoFirebase()async{
+    try{
+      // await Firebase.initializeApp();
+      await Firebase.initializeApp();
+    }catch(e){
+      print("ket noi that bai");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

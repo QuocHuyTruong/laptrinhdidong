@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
 
 import 'Movie_data.dart';
-import 'Movie_detail.dart';
 import 'Widget.dart';
 
 class MoviePageTrailer extends StatefulWidget {
@@ -37,37 +36,28 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
             }
             return snapshot.hasData
                 ? Container(
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
+              child: GridView.count(
+                  crossAxisCount: 3,
+                  children: List.generate(snapshot.data!.results.length, (index) {
+                    return Column(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: snapshot.data!.results[index].id,dataphim: snapshot.data!.results[index],));
-                            Navigator.push(context, route);
-                          },
+                        Expanded(
                           child: Container(
-                            height: 550,
-                            width: 500,
                             child: getImage(snapshot.data!.results[index].poster_path),
                           ),
                         ),
-                        Text(snapshot.data?.results[index].title ?? "", style: TextStyle(fontSize: 24, color: Colors.white70),),
+                        Text(snapshot.data!.results[index].title ?? "",),
                         Row(
                           children: [
-                            const Text("Đánh giá:",style: TextStyle(fontSize: 15, color: Colors.white70),),
-                            Text(snapshot.data!.results[index].vote_average.toString(), style: TextStyle(fontSize: 15, color: Colors.white70),),
+                            const Text("Đánh giá:",),
+                            Text(snapshot.data!.results[index].vote_average.toString(),),
                             Icon(Icons.star, color: Colors.amberAccent,),
                           ],
                         ),
                       ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index)=>Divider(thickness: 2,),
-                itemCount: snapshot.data!.results.length,
+                    );
+                  }
+                  )
               ),
             )
                 : Center(child: CircularProgressIndicator(),);

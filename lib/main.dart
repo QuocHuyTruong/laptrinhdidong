@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:laptrinhdidong/testjson/json_page.dart';
 
+import 'Group/Bottom_nav_bar.dart';
+import 'Group/Movie_page.dart';
 import 'Group/Movie_search_app.dart';
 
 
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch:Colors.grey ,
       ),
-      home:  SearchMovie(),
+      home:  Movie(),
     );
   }
 }
