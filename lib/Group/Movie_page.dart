@@ -1,10 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
-import 'package:laptrinhdidong/Group/testmoviedetail.dart';
-
+import 'package:laptrinhdidong/Group/Movie_detail.dart';
 import 'Movie_data.dart';
-import 'Movie_detail.dart';
 import 'Widget.dart';
 
 class MoviePageTrailer extends StatefulWidget {
@@ -48,7 +46,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
                       Column(
                         children: [
                           for(int i =0; i<snapshot.data!.results.length;i=i+2)
-                            movilayout(snapshot,i)
+                            movilayout(context,snapshot,i)
                         ],
                       )
                     ],
@@ -66,80 +64,8 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   }
 
 
-  Widget cardMovie(snapshot,i) {
-          if(snapshot.data!.results.length>i){
-            return
-              GestureDetector(
-                onTap: () {
-                  Route route = MaterialPageRoute(builder: (context) => MoviedetailTest(id: snapshot.data!.results[i].id,dataphim: snapshot.data!.results[i],));
-                  Navigator.push(context, route);
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    color: Color(0xFF010101),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        getImage(snapshot.data!.results[i].poster_path),
-                        Text(
-                          snapshot.data?.results[i].title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 16,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Text(
-                              'Đánh giá:' + snapshot.data!.results[i].vote_average.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                            const SizedBox(width: 3),
-                            Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                              size: 16,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-          }else
-            return
-                Text("");
-  }
 
-  Widget cardMovies(snapshot,i) => Row(
-    children: [
-      Expanded(child: cardMovie(snapshot,i)),
-      const SizedBox(width: 5),
-      Expanded(child: cardMovie(snapshot,i+1)),
-    ],
-  );
 
-  Widget movilayout(snapshot,i){
-    return (
-        Column(
-          children: [
-            cardMovies(snapshot,i),
-            const SizedBox(height: 5),
-          ],
-        )
-    );
-
-  }
 
 }
 

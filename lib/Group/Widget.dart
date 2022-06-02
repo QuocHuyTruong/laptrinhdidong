@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import 'Movie_detail.dart';
 import 'Video_youtube.dart';
 import 'getMovie.dart';
 
@@ -35,7 +35,6 @@ Widget getImageDetail(String? url){
     );
 }
 
-
 Widget trailerLayout(data, context) {
   if (data.results.length > 0) {
     return Column(
@@ -50,3 +49,77 @@ Widget trailerLayout(data, context) {
     return Text("Không có trailer",style: TextStyle(fontSize: 20,color: Colors.white),);
 }
 
+Widget cardMovies(context,snapshot,i) => Row(
+  children: [
+    Expanded(child: cardMovie(context,snapshot,i)),
+    const SizedBox(width: 5),
+    Expanded(child: cardMovie(context,snapshot,i+1)),
+  ],
+);
+
+Widget movilayout(context,snapshot,i){
+  return (
+      Column(
+        children: [
+          cardMovies(context, snapshot,i),
+          const SizedBox(height: 5),
+        ],
+      )
+  );
+
+}
+
+Widget cardMovie(context,snapshot,i) {
+  if(snapshot.data!.results.length>i){
+    return
+      GestureDetector(
+        onTap: () {
+          Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: snapshot.data!.results[i].id,dataphim: snapshot.data!.results[i],));
+          Navigator.push(context, route);
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: EdgeInsets.all(12),
+            color: Color(0xFF010101),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                getImage(snapshot.data!.results[i].poster_path),
+                Text(
+                  snapshot.data?.results[i].title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 16,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(
+                      'Đánh giá:' + snapshot.data!.results[i].vote_average.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 16,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+  }else
+    return
+      Text("");
+}

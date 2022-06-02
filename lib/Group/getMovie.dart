@@ -1,9 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/testmoviedetail.dart';
-
-import 'Movie_detail.dart';
+import 'package:laptrinhdidong/Group/Movie_detail.dart';
 import 'Widget.dart';
 
 
@@ -26,7 +24,7 @@ class _getMovieState extends State<getMovie> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Route route = MaterialPageRoute(builder: (context) => MoviedetailTest(id: _data.id,dataphim: _data,));
+            Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: _data.id,dataphim: _data,));
             Navigator.push(context, route);
           },
           child: Container(

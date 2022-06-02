@@ -2,7 +2,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Firebase/diaglog.dart';
 import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
 import 'package:laptrinhdidong/testjson/json_item.dart';
 import '../testjson/json_item.dart';
@@ -24,18 +23,17 @@ class _MoviedetailState extends State<Moviedetail> {
   int id;
   var data;
   var favorite;
+  var index;
   _MoviedetailState(this.id, this.datamovie);
 
   @override
   void initState() {
     super.initState();
-    data = fetchMovieDetail(id);
     favorite = false;
+    data = fetchMovieDetail(id);
     FavoriteSnapshot.getAllFavorite().forEach((element) {
-      print(element[0].favorite!.id.toString() + "day la test");
-      print(element.length.toString() + "day la test");
-      for(int i = 0; i<element.length;i++){
-        if(element[i].favorite!.id ==id){
+      for(int i = 0 ;i<element.length;i++){
+        if(element[i].favorite!.id == id){
           setState((){
             favorite = true;
           });
@@ -44,35 +42,7 @@ class _MoviedetailState extends State<Moviedetail> {
     });
   }
 
-  void setfavorite(){
-    _kt();
-    print("nhan lan n");
-    setState((){
-      favorite = !favorite;
-    });
-  }
 
-  _kt(){
-    if(favorite == false){
-      Favorite fa =Favorite(id: id,title: datamovie.title,url: datamovie.backdrop_path);
-      FavoriteSnapshot.addNew(fa).whenComplete((){
-        showSnackBar(context, "da them yeu thich", 5);
-      });
-    }else if(favorite == true){
-      print("xoa ne");
-      FavoriteSnapshot.getAllFavorite().forEach((element) {
-        print(element[0].favorite!.id.toString() + "day la test");
-        print(element.length.toString() + "day la test");
-        for(int i = 0; i<element.length;i++){
-          if(element[i].favorite!.id ==id){
-            element[i].delete().whenComplete((){
-              showSnackBar(context, "da xoa yeu thich", 5);
-            });
-          }
-        }
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -102,88 +72,110 @@ class _MoviedetailState extends State<Moviedetail> {
               ];
             },
             body: Container(
-              color: Color.fromRGBO(48,48,48, 1),
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    color: Color.fromRGBO(48,48,48, 1),
+                    child: ListView(
                       children: [
-                        Container(margin: EdgeInsets.only(top: 5.0)),
-                        Text(
-                          datamovie.title.toString(),
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(margin: EdgeInsets.only(top: 5.0)),
+                              Text(
+                                datamovie.title.toString(),
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white
+                                ),
+                              ),
+                              Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 1.0, right: 1.0),
+                                  ),
+                                  Text(
+                                    datamovie.vote_average.toString(),
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                                  ),
+                                  Text(
+                                    datamovie.release_date.toString(),
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  StreamBuilder<List<FavoriteSnapshot>>(
+                                    stream: FavoriteSnapshot.getAllFavorite(),
+                                    builder: (context,snapshot){
+                                      for(int i = 0;i<snapshot.data!.length;i++){
+                                        if(snapshot.data![i].favorite!.id == id){
+                                          index = i;
+                                        }
+                                      }
+                                      return
+                                        IconButton(
+                                          icon: Icon(favorite ? Icons.star : Icons.star_border),
+                                          color: Colors.brown,
+                                          onPressed: (){
+                                            if(favorite == true){
+                                              snapshot.data![index].delete();
+                                                favorite = false;
+                                            }
+                                            else{
+                                              Favorite fv = new Favorite(id: id,title: datamovie.title,url: datamovie.backdrop_path);
+                                              FavoriteSnapshot.addNew(fv);
+                                                favorite = true;
+                                            }
+                                          },
+                                        );
+                                    },
+                                  )
+                                ],
+                              ),
+                              Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
+                              Text(datamovie.overview.toString(),style: TextStyle(color: Colors.white,fontSize: 15),),
+                              Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
+                              Text(
+                                "Trailer",
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white
+                                ),
+                              ),
+                              Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
+                              FutureBuilder<Item_detail>(
+                                future: data,
+                                builder: (context, snapshottrailer){
+                                  if(snapshottrailer.hasError) {
+                                    return Text("Error");
+                                  }
+                                  return snapshottrailer.hasData
+                                      ? Container(
+                                    child: trailerLayout(snapshottrailer.data,context),
+                                  )
+                                      : Center(child: CircularProgressIndicator(),);
+                                },
+                              )
+                            ],
                           ),
                         ),
-                        Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 1.0, right: 1.0),
-                            ),
-                            Text(
-                              datamovie.vote_average.toString(),
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                            ),
-                            Text(
-                              datamovie.release_date.toString(),
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white
-                              ),
-                            ),
-                            IconButton(
-                              icon: Icon(favorite ? Icons.star : Icons.star_border),
-                              color: Colors.brown,
-                              onPressed: setfavorite,
-                            ),
-                          ],
-                        ),
-                        Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                        Text(datamovie.overview.toString(),style: TextStyle(color: Colors.white,fontSize: 15),),
-                        Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                        Text(
-                          "Trailer",
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                        Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                        FutureBuilder<Item_detail>(
-                          future: data,
-                          builder: (context, snapshot){
-                            if(snapshot.hasError) {
-                              return Text("Error");
-                            }
-                            return snapshot.hasData
-                                ? Container(
-                              child: trailerLayout(snapshot.data,context),
-                            )
-                                : Center(child: CircularProgressIndicator(),);
-                          },
-                        )
                       ],
                     ),
                   ),
-                ],
-              ),
-            )),
+        ),
       ),
     );
   }

@@ -55,7 +55,7 @@ class _VideoTrailerState extends State<VideoTrailer> {
         return Column(
           children: <Widget>[
             player,
-            Text(widget.title,style: TextStyle(color: Colors.white, fontSize: 16),),
+            Text(widget.title,style: TextStyle(color: Colors.white,),),
             Text(widget.type,style: TextStyle(color: Colors.white),),
             SizedBox(height: 40,),
           ],
