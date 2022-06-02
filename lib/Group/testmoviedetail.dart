@@ -2,7 +2,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Firebase/diaglog.dart';
 import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
 import 'package:laptrinhdidong/testjson/json_item.dart';
 import '../testjson/json_item.dart';
@@ -68,7 +67,7 @@ class _MoviedetailTestState extends State<MoviedetailTest> {
                   pinned: true,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
-                      background: getImage(datamovie.backdrop_path)),
+                      background: getImageDetail(datamovie.backdrop_path)),
                 ),
               ];
             },

@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
+import 'package:laptrinhdidong/Group/testmoviedetail.dart';
 
 import 'Movie_data.dart';
+import 'Movie_detail.dart';
 import 'Widget.dart';
 
 class MoviePageTrailer extends StatefulWidget {
@@ -26,6 +28,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
         title: const Text("Phim mới nhất"),
       ),
       body: Container(
+        color: Color.fromRGBO(48, 48, 48, 1),
         child: FutureBuilder<Item_movie>(
           future: movie,
           builder: (context, snapshot){
@@ -35,14 +38,22 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
             }
             return snapshot.hasData
                 ? Container(
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(5),
               child: GridView.count(
-                childAspectRatio: (1/1.56),
+                childAspectRatio: (1/1.51),
                 crossAxisCount: 1,
-                children: List.generate(snapshot.data!.results.length, (index){
-                  return buildBurgerscolum(snapshot);
-                }),
-
+                children:[
+                  ListView(
+                    children: [
+                      Column(
+                        children: [
+                          for(int i =0; i<snapshot.data!.results.length;i=i+2)
+                            movilayout(snapshot,i)
+                        ],
+                      )
+                    ],
+                )
+                ],
               ),
               //child: buildBurgers(snapshot),
               //child: layouttest(snapshot),
@@ -55,92 +66,80 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   }
 
 
-  Widget? layouttest(snapshot){
-    return
-      ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: EdgeInsets.all(8),
-          color: Colors.black,
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: getImage(snapshot.data!.results[0].poster_path),
-              ),
-              const SizedBox(width: 8,),
-              Expanded(child: Text(snapshot.data!.results[0].title ?? "",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.white),)),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  color: Colors.white30,
-                  width: 80,
-                  height: 80,
-                  child: Center(
-                    child: Text(snapshot.data!.results[0].title ?? "",),
+  Widget cardMovie(snapshot,i) {
+          if(snapshot.data!.results.length>i){
+            return
+              GestureDetector(
+                onTap: () {
+                  Route route = MaterialPageRoute(builder: (context) => MoviedetailTest(id: snapshot.data!.results[i].id,dataphim: snapshot.data!.results[i],));
+                  Navigator.push(context, route);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: EdgeInsets.all(12),
+                    color: Color(0xFF010101),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getImage(snapshot.data!.results[i].poster_path),
+                        Text(
+                          snapshot.data?.results[i].title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Text(
+                              'Đánh giá:' + snapshot.data!.results[i].vote_average.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(width: 3),
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 16,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
-      );
+              );
+          }else
+            return
+                Text("");
   }
 
-  Widget buildBurger(snapshot) {
-        return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        padding: EdgeInsets.all(12),
-        color: Color(0xFF010101),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+  Widget cardMovies(snapshot,i) => Row(
+    children: [
+      Expanded(child: cardMovie(snapshot,i)),
+      const SizedBox(width: 5),
+      Expanded(child: cardMovie(snapshot,i+1)),
+    ],
+  );
+
+  Widget movilayout(snapshot,i){
+    return (
+        Column(
           children: [
-            getImage(snapshot.data!.results[0].poster_path),
-            Text(
-              'Beef Burger',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Onion with cheese',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '\$24.00',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
+            cardMovies(snapshot,i),
+            const SizedBox(height: 5),
           ],
-        ),
-      ),
+        )
     );
+
   }
-
-  Widget buildBurgers(snapshot) => Row(
-    children: [
-      Expanded(child: buildBurger(snapshot)),
-      const SizedBox(width: 5),
-      Expanded(child: buildBurger(snapshot)),
-    ],
-  );
-
-  Widget buildBurgerscolum(snapshot) => Column(
-    children: [
-      Expanded(child: buildBurgers(snapshot)),
-      const SizedBox(width: 5),
-      Expanded(child: buildBurgers(snapshot)),
-    ],
-  );
 
 }
 

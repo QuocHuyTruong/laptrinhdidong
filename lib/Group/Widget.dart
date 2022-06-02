@@ -26,6 +26,15 @@ Widget getImage(String? url){
     );
 }
 
+Widget getImageDetail(String? url){
+  if (url!= null)
+    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.cover,);
+  else
+    return Center(
+      child: Icon(Icons.image),
+    );
+}
+
 
 Widget trailerLayout(data, context) {
   if (data.results.length > 0) {

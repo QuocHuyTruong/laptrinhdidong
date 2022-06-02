@@ -97,7 +97,7 @@ class _MoviedetailState extends State<Moviedetail> {
                   pinned: true,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
-                      background: getImage(datamovie.backdrop_path)),
+                      background: getImageDetail(datamovie.backdrop_path)),
                 ),
               ];
             },
