@@ -7,6 +7,8 @@
 import 'dart:async';
 
 import 'dart:io';
+import 'package:cpu_reader/cpu_reader.dart';
+import 'package:cpu_reader/cpuinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:device_info/device_info.dart';
@@ -90,12 +92,21 @@ class _DeviceState extends State<Device> {
                         maxLines: 10,
                         overflow: TextOverflow.ellipsis,
                       ),
-                    )),
+                    )
+                ),
+
               ],
             );
           }).toList(),
         ),
       ),
     );
+  }
+  List<Row> buildFreqList(AsyncSnapshot<CpuInfo> snapshot) {
+    return snapshot.data!.currentFrequencies!.entries
+        .map((entry) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [Text('CPU ${entry.key} '), Text('${entry.value}')]))
+        .toList();
   }
 }

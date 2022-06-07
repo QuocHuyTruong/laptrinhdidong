@@ -54,6 +54,8 @@ Widget cardMovies(context,snapshot,i) => Row(
     Expanded(child: cardMovie(context,snapshot,i)),
     const SizedBox(width: 5),
     Expanded(child: cardMovie(context,snapshot,i+1)),
+    const SizedBox(width: 5),
+    Expanded(child: cardMovie(context,snapshot,i+2)),
   ],
 );
 

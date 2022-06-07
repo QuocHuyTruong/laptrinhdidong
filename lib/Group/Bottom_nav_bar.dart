@@ -16,17 +16,21 @@ class Movie extends StatefulWidget {
 }
 
 class _MovieState extends State<Movie> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   final _widgetOptions = [
     MoviePageTrailer(),
     SearchMovie(),
     Test(),
   ];
+  final List<Widget> _pages = <Widget>[];
 
 
   @override
   void initState() {
     super.initState();
+    _pages.add( MoviePageTrailer());
+    _pages.add( SearchMovie());
+    _pages.add( Test());
     _khoiTaoFirebase();
   }
 
@@ -42,33 +46,53 @@ class _MovieState extends State<Movie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: _widgetOptions.elementAt(_currentIndex)),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        showElevation: true,
-        itemCornerRadius: 24,
-        curve: Curves.easeIn,
-        onItemSelected: (index) => setState(() => _currentIndex = index),
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-            icon: Icon(Icons.article_outlined),
-            title: Text('Mới nhất'),
-            activeColor: Colors.red,
-            textAlign: TextAlign.center,
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 8.0,
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+          height: kBottomNavigationBarHeight,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(
+                  color: Colors.grey,
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: BottomNavigationBar(
+                currentIndex: _currentIndex,
+                backgroundColor: Colors.blue,
+                selectedItemColor: Colors.white,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.category), label: 'Category'),
+                  BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.settings_outlined), label: 'Setting')
+                ]),
           ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.search),
-            title: Text('Tìm kiếm'),
-            activeColor: Colors.purpleAccent,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.star),
-            title: Text('Yêu thích'),
-            activeColor: Colors.purpleAccent,
-            textAlign: TextAlign.center,
-          ),
-        ],
+        ),
+      ),
+      floatingActionButtonLocation:
+      FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          backgroundColor: _currentIndex == 1 ? Colors.blue : Colors.blueGrey,
+          child: Icon(Icons.home),
+          onPressed: () => setState(() {
+            _currentIndex = 1;
+          }),
+        ),
       ),
     );
   }

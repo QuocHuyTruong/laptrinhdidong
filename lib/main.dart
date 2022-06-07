@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/testjson/json_page.dart';
 
+import 'BaiTap_Rss/RSS_Page.dart';
+import 'CPU_Z/Bottom_nav_bar.dart';
 import 'Group/Bottom_nav_bar.dart';
-import 'Group/Movie_page.dart';
-import 'Group/Movie_search_app.dart';
+import 'form/Form.dart';
+import 'imagepicker/Imagepicker.dart';
 
 
 
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch:Colors.grey ,
+        primaryColorDark: Colors.black,
+
       ),
       home:  Movie(),
     );

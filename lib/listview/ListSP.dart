@@ -15,6 +15,11 @@ class SanPham{
   SanPham({required this.ten,required this.gia,required this.url});
 }
 
+
+//ChangeNotifier: Nó có nhiệm vụ thông báo cho người nghe.
+//ChangeNotifierProvider: Nó sẽ lắng nghe khi
+//ChangeNotifier.notifyListeners được gọi và thông báo tới các hàm build liên quan .
+//Consumer: đơn giản nó chỉ là một Widget do thư viện cung cấp . Chúng ta dùng widget này để lấy ra object thay vì phải gọi Provider.of.
 class QLSanPham extends ChangeNotifier{
   late List<SanPham> _list =[
     SanPham(ten: "ten1", gia: 12346, url: "url1"),
@@ -33,7 +38,7 @@ class QLSanPham extends ChangeNotifier{
     cu.ten=moi.ten;
     cu.gia=moi.gia;
     cu.url=moi.url;
-    notifyListeners();
+    notifyListeners(); //notifyListeners sẽ thực hiện các công việc cần thiết để cập nhật giao diện
   }
   void themmoi(SanPham sanpham){
     list.add(sanpham);

@@ -81,7 +81,7 @@ class PageFormMatHang extends StatelessWidget {
   }
 
   validatorString(String? value) {
-    return value==null || value.isEmpty? "Bạn chưa nhập dữ liệu" : null;
+    return value==null || value.isEmpty ? "Bạn chưa nhập dữ liệu" : null;
 
   }
 

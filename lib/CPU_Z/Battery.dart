@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:battery_plus/battery_plus.dart';
+import 'package:cpu_reader/cpu_reader.dart';
+import 'package:cpu_reader/cpuinfo.dart';
 import 'package:flutter/material.dart';
 
 
@@ -63,10 +65,27 @@ class _BatState extends State<Bat> {
                 'Số pin:${level} %',
                 style: TextStyle(color: Colors.black, fontSize: 25),
               ),
+              StreamBuilder<CpuInfo>(
+                  stream: CpuReader.cpuStream(1000),
+                  builder: (_, AsyncSnapshot<CpuInfo> snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: SpeedCPU(snapshot),
+                      );
+                    }
+                    return Text('No data!');
+                  }),
             ],
           ),
         ),
       ),
     );
+  }
+  List<Row> SpeedCPU(AsyncSnapshot<CpuInfo> snapshot) {
+    return snapshot.data!.currentFrequencies!.entries
+        .map((entry) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('CPU ${entry.key} '), Text('${entry.value}')]))
+        .toList();
   }
 }

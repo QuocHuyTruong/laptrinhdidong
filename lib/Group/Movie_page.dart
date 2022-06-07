@@ -1,4 +1,6 @@
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
 import 'package:laptrinhdidong/Group/Movie_detail.dart';
@@ -14,6 +16,7 @@ class MoviePageTrailer extends StatefulWidget {
 
 class _MoviePageTrailerState extends State<MoviePageTrailer> {
   late Future<Item_movie> movie;
+
   @override
   void initState(){
     super.initState();
@@ -22,11 +25,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Phim mới nhất"),
-      ),
       body: Container(
-        color: Color.fromRGBO(48, 48, 48, 1),
         child: FutureBuilder<Item_movie>(
           future: movie,
           builder: (context, snapshot){
@@ -36,26 +35,18 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> {
             }
             return snapshot.hasData
                 ? Container(
-              padding: EdgeInsets.all(5),
-              child: GridView.count(
-                childAspectRatio: (1/1.51),
-                crossAxisCount: 1,
-                children:[
-                  ListView(
-                    children: [
-                      Column(
-                        children: [
-                          for(int i =0; i<snapshot.data!.results.length;i=i+2)
-                            movilayout(context,snapshot,i)
-                        ],
-                      )
-                    ],
-                )
-                ],
-              ),
-              //child: buildBurgers(snapshot),
-              //child: layouttest(snapshot),
-            )
+                    padding: EdgeInsets.all(5),
+                    child: ListView(
+                      children: [
+                        Column(
+                          children: [
+                            for(int i =0; i<snapshot.data!.results.length;i=i+3)
+                              movilayout(context,snapshot,i)
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 : Center(child: CircularProgressIndicator(),);
           },
         ),

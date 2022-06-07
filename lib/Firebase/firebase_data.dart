@@ -36,7 +36,9 @@ class SinhVienSnapshot{
 
   factory SinhVienSnapshot.fromSnapshot(DocumentSnapshot docSnap){
     return SinhVienSnapshot(
-        sinhVien: SinhVien.fromJson(docSnap.data() as Map<String, dynamic>),
+        sinhVien: SinhVien.fromJson(docSnap.data() as Map
+
+        <String, dynamic>),
         docRef: docSnap.reference,
     );
   }
