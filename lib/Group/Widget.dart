@@ -19,7 +19,7 @@ Widget movieLayout(data) {
 
 Widget getImage(String? url){
   if (url!= null)
-    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.contain,width: 200,height: 250,);
+    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.contain,width: 200,height: 200,);
   else
     return Center(
       child: Icon(Icons.image),

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch:Colors.grey ,
-        primaryColorDark: Colors.black,
+        primaryColorDark: Color(0xff030424),
 
       ),
       home:  Movie(),
