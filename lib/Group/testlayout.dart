@@ -1,56 +1,102 @@
 import 'package:flutter/material.dart';
 
+class Layouttest extends StatefulWidget {
+  const Layouttest({Key? key}) : super(key: key);
 
-class MyApplayout extends StatelessWidget {
+  @override
+  State<Layouttest> createState() => _LayouttestState();
+}
+
+class _LayouttestState extends State<Layouttest> {
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-                crossAxisCount: 3,
-                children: List.generate(choices.length, (index) {
-                  return Column(
-                    children: [
-                      Text("data"),
-                    ],
-                  );
-                }
+    return Row(
+      children: [
+        Column(
+          children: [
+            Container(
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  // backgroundColor: Colors.cyan[100],
+                  backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Taylor%2C_Elizabeth_posed.jpg/800px-Taylor%2C_Elizabeth_posed.jpg"),
                 )
-            );
-  }
-}
-
-class Choice {
-  const Choice({required this.title, required this.icon});
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Home', icon: Icons.home),
-  const Choice(title: 'Contact', icon: Icons.contacts),
-  const Choice(title: 'Map', icon: Icons.map),
-  const Choice(title: 'Phone', icon: Icons.phone),
-  const Choice(title: 'Camera', icon: Icons.camera_alt),
-  const Choice(title: 'Setting', icon: Icons.settings),
-  const Choice(title: 'Album', icon: Icons.photo_album),
-  const Choice(title: 'WiFi', icon: Icons.wifi),
-];
-
-class SelectCard extends StatelessWidget {
-  const SelectCard({required this.choice});
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        color: Colors.orange,
-        child: Center(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(child: Icon(choice.icon, size:50.0,)),
-              Text(choice.title,),
-            ]
+            ),
+            Text("Elizabeth Taylor",style: TextStyle(color: Colors.white,fontSize: 10),)
+          ],
         ),
-        )
+        SizedBox(width: 10,),
+        Column(
+          children: [
+            Container(
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  // backgroundColor: Colors.cyan[100],
+                  backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Marilyn_Monroe_1961.jpg/800px-Marilyn_Monroe_1961.jpg"),
+                )
+            ),
+            Text("Marilyn Monroe",style: TextStyle(color: Colors.white,fontSize: 10),)
+          ],
+        ),
+        SizedBox(width: 10,),
+        Column(
+          children: [
+            Container(
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  // backgroundColor: Colors.cyan[100],
+                  backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Brig._Gen._James_M._Stewart.jpg/800px-Brig._Gen._James_M._Stewart.jpg"),
+                )
+            ),
+            Text("James Stewart",style: TextStyle(color: Colors.white,fontSize: 10),)
+          ],
+        ),
+        SizedBox(width: 10,),
+        Column(
+          children: [
+            Container(
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  // backgroundColor: Colors.cyan[100],
+                  backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Charlie_Chaplin.jpg/800px-Charlie_Chaplin.jpg"),
+                )
+            ),
+            Text("Charles Chaplin",style: TextStyle(color: Colors.white,fontSize: 10),)
+          ],
+        ),
+        SizedBox(width: 10,),
+        Column(
+          children: [
+            Container(
+                width: 80,
+                height: 80,
+                child: CircleAvatar(
+                  // backgroundColor: Colors.cyan[100],
+                  backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/8/84/Humphrey_Bogart_1940.jpg"),
+                )
+            ),
+            Text("Humphrey Bogart",style: TextStyle(color: Colors.white,fontSize: 10),)
+          ],
+        ),
+      ],
     );
   }
 }
+
+
+class Sao{
+  late String ten;
+  late String url;
+  Sao({required this.ten,required this.url});
+}
+
+List<Sao> listSao = [
+  Sao(ten: "Elizabeth Taylor", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Taylor%2C_Elizabeth_posed.jpg/800px-Taylor%2C_Elizabeth_posed.jpg"),
+  Sao(ten: "Marilyn Monroe", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Marilyn_Monroe_1961.jpg/800px-Marilyn_Monroe_1961.jpg"),
+  Sao(ten: "James Stewart", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Brig._Gen._James_M._Stewart.jpg/800px-Brig._Gen._James_M._Stewart.jpg"),
+  Sao(ten: "Charles Chaplin", url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Charlie_Chaplin.jpg/800px-Charlie_Chaplin.jpg"),
+  Sao(ten: "Humphrey Bogart", url: "https://upload.wikimedia.org/wikipedia/commons/8/84/Humphrey_Bogart_1940.jpg"),
+];

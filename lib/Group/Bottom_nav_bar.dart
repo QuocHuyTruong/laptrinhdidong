@@ -2,7 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../testjson/json_page.dart';
+import 'Favorite_page.dart';
 import 'Movie_page.dart';
 import 'Movie_search_app.dart';
 
@@ -17,19 +17,14 @@ class Movie extends StatefulWidget {
 
 class _MovieState extends State<Movie> {
   int _currentIndex = 1;
-  final _widgetOptions = [
-    MoviePageTrailer(),
-    SearchMovie(),
-    Test(),
-  ];
   final List<Widget> _pages = <Widget>[];
 
 
   @override
   void initState() {
     super.initState();
-    _pages.add( MoviePageTrailer());
     _pages.add( SearchMovie());
+    _pages.add( MoviePageTrailer());
     _pages.add( Test());
     _khoiTaoFirebase();
   }
@@ -49,7 +44,7 @@ class _MovieState extends State<Movie> {
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 8.0,
+        notchMargin: 5.0,
         clipBehavior: Clip.antiAlias,
         child: Container(
           height: kBottomNavigationBarHeight,
@@ -65,8 +60,8 @@ class _MovieState extends State<Movie> {
             ),
             child: BottomNavigationBar(
                 currentIndex: _currentIndex,
-                backgroundColor: Colors.blue,
-                selectedItemColor: Colors.white,
+                backgroundColor: Colors.white,
+                selectedItemColor: Colors.blue,
                 onTap: (index) {
                   setState(() {
                     _currentIndex = index;
@@ -74,10 +69,10 @@ class _MovieState extends State<Movie> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.category), label: 'Category'),
+                      icon: Icon(Icons.search), label: 'Tìm kiếm'),
                   BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.settings_outlined), label: 'Setting')
+                      icon: Icon(Icons.favorite_outlined), label: 'Yêu thích')
                 ]),
           ),
         ),

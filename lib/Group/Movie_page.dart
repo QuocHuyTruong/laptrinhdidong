@@ -4,8 +4,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie.dart';
-import 'package:laptrinhdidong/Group/Movie_detail.dart';
-import 'package:laptrinhdidong/testjson/json_page.dart';
+import 'package:laptrinhdidong/Group/testlayout.dart';
 import 'Movie_data.dart';
 import 'Widget.dart';
 
@@ -47,17 +46,16 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                   children: [
                     Container(
                       child: CarouselSlider.builder(
-                          itemCount: 5,
-                          options: CarouselOptions(
-                              height: 200,
-                              autoPlay: true,
-                              enlargeCenterPage: true,
-
-                          ),
+                        itemCount: 5,
+                        options: CarouselOptions(
+                          height: 200,
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                        ),
                         itemBuilder: (context,index,realIndex){
-                            final image = snapshot.data!.results[index].poster_path;
-                            final title = snapshot.data!.results[index].title;
-                            return buildImageslider(image!,title!,index);
+                          final image = snapshot.data!.results[index].poster_path;
+                          final title = snapshot.data!.results[index].title;
+                          return buildImageslider(image!,title!,index);
                         },
                       ),
                     ),
@@ -76,12 +74,13 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                     tabs: [
                                       Tab(text: "Hoạt Hình",),
                                       Tab(text: "Kinh dị",),
-                                      Tab(text: "Tình củm",),
+                                      Tab(text: "Tình cảm",),
                                       Tab(text: "Hài",),
                                     ],
                                   ),
                                 ) ,
                               ),
+                              SizedBox(height: 5,),
                               Container(
                                 padding: EdgeInsets.fromLTRB(0, 0, 3, 0),
                                 width: double.maxFinite,
@@ -123,6 +122,10 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                 ),
                               ),
                               SizedBox(height: 5,),
+                              Text("Sao Hollywood",style: TextStyle(color: Colors.white,fontSize: 20),),
+                              SizedBox(height: 5,),
+                              Layouttest(),
+                              SizedBox(height: 5,),
                               Text("Phim Hot",style: TextStyle(color: Colors.white,fontSize: 20),),
                               Column(
                                 children: [
@@ -134,7 +137,6 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                           ),
                         ),
                     ),
-
                   ],
                 )
                 : Center(child: CircularProgressIndicator(),);

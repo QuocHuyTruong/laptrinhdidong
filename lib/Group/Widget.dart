@@ -72,6 +72,7 @@ Widget movilayout(context,snapshot,i){
 }
 
 Widget cardMovie(context,snapshot,i) {
+  final TextTheme textTheme = Theme.of(context).textTheme;
   if(snapshot.data!.results.length>i){
     return
       GestureDetector(

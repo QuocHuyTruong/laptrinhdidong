@@ -20,7 +20,7 @@ class _SearchMovieState extends State<SearchMovie> {
   @override
   void initState() {
     super.initState();
-    data = fetchSearchMovie("Batman");
+    data = fetchSearchMovie("");
   }
 
   void _incrementCounter(){

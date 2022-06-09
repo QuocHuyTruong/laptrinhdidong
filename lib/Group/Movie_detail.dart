@@ -3,8 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
-import 'package:laptrinhdidong/testjson/json_item.dart';
-import '../testjson/json_item.dart';
+import 'Favorite_item.dart';
 import 'Item_movie.dart';
 import 'Movie_data.dart';
 import 'Widget.dart';
