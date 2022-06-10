@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:laptrinhdidong/Group/Sao_item.dart';
 import 'Movie_detail.dart';
 import 'Video_youtube.dart';
 import 'getMovie.dart';
@@ -72,7 +73,6 @@ Widget movilayout(context,snapshot,i){
 }
 
 Widget cardMovie(context,snapshot,i) {
-  final TextTheme textTheme = Theme.of(context).textTheme;
   if(snapshot.data!.results.length>i){
     return
       GestureDetector(
@@ -81,10 +81,9 @@ Widget cardMovie(context,snapshot,i) {
           Navigator.push(context, route);
         },
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           child: Container(
-            padding: EdgeInsets.all(12),
-            color: Color(0xFF010101),
+            padding: EdgeInsets.all(10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +98,7 @@ Widget cardMovie(context,snapshot,i) {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 5),
                 Row(
                   children: [
                     Text(
@@ -126,3 +125,34 @@ Widget cardMovie(context,snapshot,i) {
     return
       Text("");
 }
+
+Widget cardSao(context,i) {
+    return
+      GestureDetector(
+        onTap: () {
+
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    width: 80,
+                    height: 80,
+                    child: CircleAvatar(
+                      // backgroundColor: Colors.cyan[100],
+                      backgroundImage: NetworkImage(listSao[i].url),
+                    )
+                ),
+                Text(listSao[i].ten,style: TextStyle(color: Colors.white,fontSize: 10),)
+              ],
+            ),
+          ),
+        ),
+      );
+}
+
+

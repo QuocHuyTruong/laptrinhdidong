@@ -47,7 +47,7 @@ class _MovieState extends State<Movie> {
         notchMargin: 5.0,
         clipBehavior: Clip.antiAlias,
         child: Container(
-          height: kBottomNavigationBarHeight,
+          height: 53.5,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -62,6 +62,7 @@ class _MovieState extends State<Movie> {
                 currentIndex: _currentIndex,
                 backgroundColor: Colors.white,
                 selectedItemColor: Colors.blue,
+                iconSize: 20,
                 onTap: (index) {
                   setState(() {
                     _currentIndex = index;
@@ -73,7 +74,8 @@ class _MovieState extends State<Movie> {
                   BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.favorite_outlined), label: 'Yêu thích')
-                ]),
+                ]
+            ),
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'BaiTap_Rss/RSS_Page.dart';
 import 'CPU_Z/Bottom_nav_bar.dart';
 import 'Group/Bottom_nav_bar.dart';
+import 'Group/constants.dart';
 import 'form/Form.dart';
 import 'imagepicker/Imagepicker.dart';
 
@@ -24,8 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch:Colors.grey ,
-        primaryColorDark: Color(0xff030424),
-
+        primaryColorDark: Color(0xFF1b1b1b),
+        textTheme: defaultText,
       ),
       home:  Movie(),
     );
