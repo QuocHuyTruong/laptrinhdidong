@@ -20,7 +20,7 @@ class _VideoTrailerState extends State<VideoTrailer> {
         enableCaption: false,
         isLive: false,
         autoPlay: false,
-      )
+      ),
     );
   }
 
@@ -55,8 +55,8 @@ class _VideoTrailerState extends State<VideoTrailer> {
         return Column(
           children: <Widget>[
             player,
-            Text(widget.title,style: TextStyle(color: Colors.white,),),
-            Text(widget.type,style: TextStyle(color: Colors.white),),
+            Text(widget.title,style: TextStyle(color: Colors.black45,),),
+            Text(widget.type,style: TextStyle(color: Colors.black45),),
             SizedBox(height: 40,),
           ],
         );

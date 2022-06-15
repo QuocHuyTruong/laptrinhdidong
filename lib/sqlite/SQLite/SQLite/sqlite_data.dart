@@ -1,4 +1,3 @@
-
 import 'package:sqflite/sqflite.dart';
 
 const String tableName = "Users";
@@ -23,7 +22,6 @@ class User{
     'email': email,
   };
 }
-
 class DatabaseHelper{
   Database? database;
   String? _path;
@@ -33,7 +31,7 @@ class DatabaseHelper{
     this._path=_path;
     return _path;
   }
-  // mở một database để làm việc, nếu CSDL chưa tồn tại, phương thức onCreate sẽ đc gọi để tạo CSDL
+
   Future<Database?> open() async{
     String? _path=await _getDatabasePath('demo.db');
     database = await openDatabase(
@@ -47,13 +45,12 @@ class DatabaseHelper{
     return database;
   }
 
-  //chèn bộ dữ liệu vào bản USERS và trả về id của bộ dữ liệu
   Future<int> insert(User user) async{
     int id=await database!.transaction(
             (Transaction txn) async {
           int id=await txn.rawInsert(
-              'INSERT INTO $tableName(name,phone,email) VALUES( ?, ?, ?)' ,
-              [user.name,user.name,user.email]
+            'INSERT INTO $tableName(name,phone,email) VALUES( ?, ?, ?)' ,
+            [user.name,user.phone,user.email],
           );
           return id;
         }
@@ -80,10 +77,11 @@ class DatabaseHelper{
     return count;
   }
 
-  Future<List<User>> getUser() async{
+  Future<List<User>> getUsers() async{
     List<Map> list =await database!.rawQuery("SELECT * FROM $tableName");
     return list.map((userJson) => User.fromJson(userJson as Map<String,dynamic>)).toList();
   }
+  
   void closeDatabase() async{
     await database!.close();
   }

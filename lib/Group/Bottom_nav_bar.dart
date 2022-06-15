@@ -1,8 +1,10 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:laptrinhdidong/Group/History/History_page.dart';
 
 import 'Favorite_page.dart';
+import 'History/History_page_home.dart';
 import 'Movie_page.dart';
 import 'Movie_search_app.dart';
 
@@ -16,17 +18,19 @@ class Movie extends StatefulWidget {
 }
 
 class _MovieState extends State<Movie> {
-  int _currentIndex = 1;
-  final List<Widget> _pages = <Widget>[];
+  int _currentIndex = 0;
+  final _widgetOptions = [
+    MoviePageTrailer(),
+    SearchMovie(),
+    Test(),
+    HistopyPageHome()
+  ];
 
 
   @override
   void initState() {
     super.initState();
-    _pages.add( SearchMovie());
-    _pages.add( MoviePageTrailer());
-    _pages.add( Test());
-    _khoiTaoFirebase();
+   _khoiTaoFirebase();
   }
 
   _khoiTaoFirebase()async{
@@ -41,55 +45,40 @@ class _MovieState extends State<Movie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 5.0,
-        clipBehavior: Clip.antiAlias,
-        child: Container(
-          height: 53.5,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey,
-                  width: 0.5,
-                ),
-              ),
-            ),
-            child: BottomNavigationBar(
-                currentIndex: _currentIndex,
-                backgroundColor: Colors.white,
-                selectedItemColor: Colors.blue,
-                iconSize: 20,
-                onTap: (index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search), label: 'Tìm kiếm'),
-                  BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.favorite_outlined), label: 'Yêu thích')
-                ]
-            ),
+      body: Center(child: _widgetOptions.elementAt(_currentIndex)),
+      bottomNavigationBar: BottomNavyBar(
+        backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+        selectedIndex: _currentIndex,
+        showElevation: true,
+        itemCornerRadius: 24,
+        curve: Curves.easeIn,
+        onItemSelected: (index) => setState(() => _currentIndex = index),
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Trang chủ'),
+            activeColor: Colors.blue,
+            textAlign: TextAlign.center,
           ),
-        ),
-      ),
-      floatingActionButtonLocation:
-      FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton(
-          backgroundColor: _currentIndex == 1 ? Colors.blue : Colors.blueGrey,
-          child: Icon(Icons.home),
-          onPressed: () => setState(() {
-            _currentIndex = 1;
-          }),
-        ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Tìm kiếm'),
+            activeColor: Colors.blue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.star),
+            title: Text('Yêu thích'),
+            activeColor: Colors.blue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.history),
+            title: Text('Lịch sử'),
+            activeColor: Colors.blue,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart'as http;
-import 'package:laptrinhdidong/Group/Item_movie.dart';
-import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
+import 'Models/Item_movie.dart';
+import 'Models/Item_movie_detail.dart';
 
 Future<Item_movie> fetchMovieList() async {
   var response ;

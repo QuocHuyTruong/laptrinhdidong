@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/Sao_item.dart';
+import 'package:laptrinhdidong/Group/Sao_detail.dart';
+import 'package:laptrinhdidong/Group/Models/Sao_item.dart';
 import 'Movie_detail.dart';
 import 'Video_youtube.dart';
 import 'getMovie.dart';
@@ -80,44 +81,72 @@ Widget cardMovie(context,snapshot,i) {
           Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: snapshot.data!.results[i].id,dataphim: snapshot.data!.results[i],));
           Navigator.push(context, route);
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getImage(snapshot.data!.results[i].poster_path),
-                Text(
-                  snapshot.data?.results[i].title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16,
-                    overflow: TextOverflow.ellipsis,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10)
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: getImage(snapshot.data!.results[i].poster_path),
+              ),
+              Text(
+                snapshot.data?.results[i].title.toUpperCase(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black45,
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 14,
                   ),
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    Text(
-                      'Đánh giá:' + snapshot.data!.results[i].vote_average.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 14,
+                  ),
+                  Text(
+                    snapshot.data!.results[i].vote_average.toString(),
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: 12,
                     ),
-                    const SizedBox(width: 3),
-                    Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 16,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const SizedBox(width: 3),
+                  Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: 14,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       );
@@ -130,10 +159,11 @@ Widget cardSao(context,i) {
     return
       GestureDetector(
         onTap: () {
-
+          Route route = MaterialPageRoute(builder: (context) => Saodetail(name: listSao[i].ten, url: listSao[i].url));
+          Navigator.push(context, route);
         },
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           child: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -147,7 +177,7 @@ Widget cardSao(context,i) {
                       backgroundImage: NetworkImage(listSao[i].url),
                     )
                 ),
-                Text(listSao[i].ten,style: TextStyle(color: Colors.white,fontSize: 10),)
+                Text(listSao[i].ten,style: TextStyle(color: Colors.black45,fontSize: 12),)
               ],
             ),
           ),

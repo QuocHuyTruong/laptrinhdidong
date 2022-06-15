@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'Item_movie.dart';
+import 'Models/Item_movie.dart';
 import 'Movie_data.dart';
 import 'Widget.dart';
 
@@ -14,13 +14,11 @@ class SearchMovie extends StatefulWidget {
 class _SearchMovieState extends State<SearchMovie> {
   TextEditingController txtName = TextEditingController();
   var data;
-  late double width;
-  late double height;
 
   @override
   void initState() {
     super.initState();
-    data = fetchSearchMovie("");
+    data = fetchSearchMovie("trailer");
   }
 
   void _incrementCounter(){
@@ -40,8 +38,6 @@ class _SearchMovieState extends State<SearchMovie> {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return
       Scaffold(
         body: SafeArea(
@@ -79,7 +75,7 @@ class _SearchMovieState extends State<SearchMovie> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Theme.of(context).primaryColorDark,
+                      color: Color.fromRGBO(244, 244, 244, 1),
                       child: FutureBuilder<Item_movie>(
                         future: data,
                         builder: (context, snapshot){

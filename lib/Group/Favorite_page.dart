@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'Favorite_item.dart';
+import 'Models/Favorite_item.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -32,6 +32,7 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white60,
       appBar: AppBar(
         title: Text("kh co gi"),
         actions: [
@@ -68,13 +69,19 @@ class _TestState extends State<Test> {
                       title: Text("${snapshot.data![index].favorite!.title}"),
                       subtitle: Text("${snapshot.data![index].favorite!.url}"),
                     ),
-                    startActionPane: ActionPane(
-                      motion: ScrollMotion(),
-                      children: [],
-                    ),
                     endActionPane:ActionPane(
                       motion: ScrollMotion(),
-                      children: [],
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            snapshot.data![index].delete();
+                          },
+                          backgroundColor: Colors.red.shade300,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Xóa',
+                        ),
+                      ],
                     ) ,
                   );
                 },

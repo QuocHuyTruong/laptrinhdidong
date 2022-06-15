@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/Item_movie.dart';
-import 'package:laptrinhdidong/Group/Sao_item.dart';
+import 'package:laptrinhdidong/Group/Models/Item_movie.dart';
+import 'package:laptrinhdidong/Group/Models/Sao_item.dart';
 import 'Movie_data.dart';
 import 'Widget.dart';
 
@@ -39,11 +39,27 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Title"),
+        elevation: 0,
+        leading: Icon(Icons.menu,color: Colors.black45,),
+        backgroundColor: Colors.transparent,
+        title: Text("MOVIE APP",
+        style: Theme.of(context).textTheme.caption?.copyWith(
+          color: Colors.black45,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 15),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage('https://img.freepik.com/free-vector/click-movie-logo-vector_18099-258.jpg?w=740'),
+            ),
+          ),
+        ],
       ),
       body: Container(
+        color: Color.fromRGBO(244, 244, 244, 1),
         padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        color: Theme.of(context).primaryColorDark,
         child: FutureBuilder<Item_movie>(
           future: movie,
           builder: (context, snapshot){
@@ -80,7 +96,11 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                   child: TabBar(
                                     isScrollable: true,
                                     controller: _tabController,
-                                    labelColor: Colors.white,
+                                    labelColor: Colors.black,
+                                    labelStyle: TextStyle(
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.bold
+                                    ),
                                     tabs: [
                                       Tab(text: "Hoạt Hình",),
                                       Tab(text: "Kinh dị",),
@@ -107,8 +127,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (_,index){
                                                 return Container(
-                                                    padding: EdgeInsets.all(2),
-                                                    // height: 200,
+                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                                     width: 150,
                                                     child: cardMovie(context,moviecartoon,index)
                                                 );
@@ -126,8 +145,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (_,index){
                                                 return Container(
-                                                    padding: EdgeInsets.all(2),
-                                                    // height: 200,
+                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                                     width: 150,
                                                     child: cardMovie(context,moviehorror,index)
                                                 );
@@ -145,8 +163,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (_,index){
                                                 return Container(
-                                                    padding: EdgeInsets.all(2),
-                                                    // height: 200,
+                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                                     width: 150,
                                                     child: cardMovie(context,movieromance,index)
                                                 );
@@ -164,10 +181,9 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                               scrollDirection: Axis.horizontal,
                                               itemBuilder: (_,index){
                                                 return Container(
-                                                    padding: EdgeInsets.all(2),
-                                                    // height: 200,
+                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                                     width: 150,
-                                                    child: cardMovie(context,moviecomedy,index)
+                                                    child:cardMovie(context,moviecomedy,index)
                                                 );
                                               }
                                           ) :
@@ -178,7 +194,15 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                 ),
                               ),
                               SizedBox(height: 5,),
-                              Text("Sao Hollywood",style: TextStyle(color: Colors.white,fontSize: 20),),
+                              Text(
+                                'Sao hoolywood'.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: 'muli',
+                                ),
+                              ),
                               SizedBox(height: 5,),
                               Container(
                                 padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
@@ -189,14 +213,22 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (_,index){
                                       return Container(
-                                          padding:EdgeInsets.fromLTRB(6, 0, 6, 0) ,
+                                          padding:EdgeInsets.fromLTRB(3, 0, 3, 0) ,
                                           child: cardSao(context,index)
                                       );
                                     }
                                 ),
                               ),
                               SizedBox(height: 5,),
-                              Text("Phim Hot",style: TextStyle(color: Colors.white,fontSize: 20),),
+                              Text(
+                                'Phim hot'.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: 'muli',
+                                ),
+                              ),
                               Column(
                                 children: [
                                   for(int i =0; i<snapshot.data!.results.length;i=i+3)
@@ -217,23 +249,26 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
   }
 
   Widget buildImageslider(String image,String title, int index) => Container(
-    margin: EdgeInsets.symmetric(horizontal: 10),
     decoration: BoxDecoration(
-      color: Colors.grey,
+      color: Colors.grey.shade400,
       borderRadius: BorderRadius.circular(10)
     ),
     child: Stack(
+      alignment: Alignment.bottomLeft,
       children: [
-        Container(
-            alignment: Alignment.center,
-            child: Image.network("https://image.tmdb.org/t/p/original/$image",fit: BoxFit.cover,width: 500,)
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+              alignment: Alignment.center,
+              child: Image.network("https://image.tmdb.org/t/p/original/$image",fit: BoxFit.cover,width: 500,)
+          ),
         ),
         Container(
             alignment: Alignment.bottomCenter,
             child: Text(title,style: Theme.of(context).textTheme.headline6!.apply(color: Colors.white),)
         ),
       ],
-    )
+    ),
   );
 }
 

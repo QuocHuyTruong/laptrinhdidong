@@ -1,10 +1,14 @@
 
 
 
+
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/Item_movie_detail.dart';
-import 'Favorite_item.dart';
-import 'Item_movie.dart';
+import 'package:laptrinhdidong/Group/History/History_data.dart';
+import 'package:laptrinhdidong/Group/Models/Item_movie_detail.dart';
+import 'package:provider/provider.dart';
+import 'Models/Favorite_item.dart';
+import 'Models/History_item.dart';
+import 'Models/Item_movie.dart';
 import 'Movie_data.dart';
 import 'Widget.dart';
 
@@ -39,16 +43,17 @@ class _MoviedetailState extends State<Moviedetail> {
         }
       }
     });
+    write();
   }
 
-
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-
+void write()async{
+    var list = await readJsonFile();
+    list.forEach((element) async {
+      if(element.id != id){
+        await writeJsonFile(id, datamovie.backdrop_path.toString(), datamovie.title.toString());
+      }
+    });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +76,7 @@ class _MoviedetailState extends State<Moviedetail> {
               ];
             },
             body: Container(
-                    color: Color.fromRGBO(48,48,48, 1),
+                    color: Color.fromRGBO(244, 244, 244, 1),
                     child: ListView(
                       children: [
                         Padding(
@@ -85,7 +90,7 @@ class _MoviedetailState extends State<Moviedetail> {
                                 style: TextStyle(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white
+                                    color: Colors.black45
                                 ),
                               ),
                               Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
@@ -102,7 +107,7 @@ class _MoviedetailState extends State<Moviedetail> {
                                     datamovie.vote_average.toString(),
                                     style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.white
+                                        color: Colors.black45
                                     ),
                                   ),
                                   Container(
@@ -112,7 +117,7 @@ class _MoviedetailState extends State<Moviedetail> {
                                     datamovie.release_date.toString(),
                                     style: TextStyle(
                                         fontSize: 18.0,
-                                        color: Colors.white
+                                        color: Colors.black45
                                     ),
                                   ),
                                   StreamBuilder<List<FavoriteSnapshot>>(
@@ -144,14 +149,14 @@ class _MoviedetailState extends State<Moviedetail> {
                                 ],
                               ),
                               Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
-                              Text(datamovie.overview.toString(),style: TextStyle(color: Colors.white,fontSize: 15),),
+                              Text(datamovie.overview.toString(),style: TextStyle(color: Colors.black45,fontSize: 15),),
                               Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
                               Text(
                                 "Trailer",
                                 style: TextStyle(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white
+                                    color: Colors.black45
                                 ),
                               ),
                               Container(margin: EdgeInsets.only(top: 8.0, bottom: 8.0)),
