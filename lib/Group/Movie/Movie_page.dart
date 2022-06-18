@@ -5,8 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/Models/Item_movie.dart';
 import 'package:laptrinhdidong/Group/Models/Sao_item.dart';
-import 'Movie_data.dart';
-import 'Widget.dart';
+import '../Data/Movie_data.dart';
+import '../Widget/Widget.dart';
 
 class MoviePageTrailer extends StatefulWidget {
   const MoviePageTrailer({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
         ],
       ),
       body: Container(
-        color: Color.fromRGBO(244, 244, 244, 1),
+        color: Color.fromRGBO(233, 233 , 233, 1),
         padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: FutureBuilder<Item_movie>(
           future: movie,
@@ -199,8 +199,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'muli',
+                                  color: Colors.black45,
                                 ),
                               ),
                               SizedBox(height: 5,),
@@ -225,8 +224,7 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'muli',
+                                  color: Colors.black54,
                                 ),
                               ),
                               Column(
@@ -265,7 +263,11 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
         ),
         Container(
             alignment: Alignment.bottomCenter,
-            child: Text(title,style: Theme.of(context).textTheme.headline6!.apply(color: Colors.white),)
+            child: Text(title.toUpperCase(),style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),)
         ),
       ],
     ),

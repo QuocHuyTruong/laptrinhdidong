@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-import 'Models/Item_movie.dart';
-import 'Movie_data.dart';
-import 'Widget.dart';
+import '../Models/Item_movie.dart';
+import '../Data/Movie_data.dart';
+import '../Widget/Widget.dart';
 
 class SearchMovie extends StatefulWidget {
   const SearchMovie({Key? key,}) : super(key: key);
@@ -75,7 +75,7 @@ class _SearchMovieState extends State<SearchMovie> {
                 ),
                 Expanded(
                   child: Container(
-                      color: Color.fromRGBO(244, 244, 244, 1),
+                      color: Color.fromRGBO(233, 233 , 233, 1),
                       child: FutureBuilder<Item_movie>(
                         future: data,
                         builder: (context, snapshot){
@@ -91,7 +91,7 @@ class _SearchMovieState extends State<SearchMovie> {
                                 children: [
                                   Column(
                                     children: [
-                                      for(int i =0; i<snapshot.data!.results.length;i=i+2)
+                                      for(int i =0; i<snapshot.data!.results.length;i=i+3)
                                         movilayout(context,snapshot,i)
                                     ],
                                   )

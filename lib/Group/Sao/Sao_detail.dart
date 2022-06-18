@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/Widget.dart';
+import 'package:laptrinhdidong/Group/Widget/Widget.dart';
 
-import 'Models/Item_movie.dart';
-import 'Movie_data.dart';
+import '../Models/Item_movie.dart';
+import '../Data/Movie_data.dart';
 
 class Saodetail extends StatefulWidget {
   final name;
@@ -42,11 +42,21 @@ class _SaodetailState extends State<Saodetail> {
                           Container(
                             child:Image.network(url,fit: BoxFit.cover,),
                           ),
+                          AppBar(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            leading: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.keyboard_backspace,color: Colors.black45,),
+                              ),
+                          ),
                         ],
                       )
                   ),
                   Container(
-                    color: Theme.of(context).primaryColorDark,
+                      color: Color.fromRGBO(233, 233 , 233, 1),
                     width: constraints.maxHeight,
                     height: 600,
                     child: FutureBuilder<Item_movie>(

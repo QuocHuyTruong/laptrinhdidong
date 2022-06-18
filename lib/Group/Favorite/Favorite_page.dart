@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'Models/Favorite_item.dart';
+import '../Models/Favorite_item.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -32,19 +32,16 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white60,
+      backgroundColor: Color.fromRGBO(233, 233 , 233, 1),
       appBar: AppBar(
-        title: Text("kh co gi"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Favorite favorite = Favorite(id: 2,title: "2",url: "3");
-              FavoriteSnapshot.addNew(favorite).whenComplete(() => print("kh co gi ca"));
-            },
-            icon: Icon(Icons.add_circle_outline, color: Colors.white,),
-          )
-        ],
-      ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Text("Phim yêu thích".toUpperCase(),
+            style: Theme.of(context).textTheme.caption?.copyWith(
+              color: Colors.black45,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),),),
       body:  StreamBuilder<List<FavoriteSnapshot>>(
         stream: FavoriteSnapshot.getAllFavorite(),
         builder: (context, snapshot){

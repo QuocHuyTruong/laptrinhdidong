@@ -30,11 +30,9 @@ Future<List<History>> readJsonFile() async{
     return [];
 }
 
-Future<List<History>> writeJsonFile(int id,String key,String title) async {
+Future<List<History>> writeJsonFile(History history) async {
   List<History> list;
   String fileContent;
-  final History history =new History(key: key, id: id, title: title);
-
   File file = await _jsonFile;
 
   fileContent = await file.readAsString();

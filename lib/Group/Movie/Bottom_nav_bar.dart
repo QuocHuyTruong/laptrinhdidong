@@ -2,9 +2,10 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:laptrinhdidong/Group/History/History_page.dart';
+import 'package:laptrinhdidong/Group/Movie/testlayouy.dart';
 
-import 'Favorite_page.dart';
-import 'History/History_page_home.dart';
+import '../Favorite/Favorite_page.dart';
+import '../History/History_page_home.dart';
 import 'Movie_page.dart';
 import 'Movie_search_app.dart';
 
@@ -22,7 +23,7 @@ class _MovieState extends State<Movie> {
   final _widgetOptions = [
     MoviePageTrailer(),
     SearchMovie(),
-    Test(),
+    TestLayout(),
     HistopyPageHome()
   ];
 
@@ -47,7 +48,7 @@ class _MovieState extends State<Movie> {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_currentIndex)),
       bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+        backgroundColor: Color.fromRGBO(233, 233, 233, 1),
         selectedIndex: _currentIndex,
         showElevation: true,
         itemCornerRadius: 24,

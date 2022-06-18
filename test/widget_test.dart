@@ -10,7 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:laptrinhdidong/BaiTap_Rss/RSS_Helper.dart';
-import 'package:laptrinhdidong/Group/Movie_data.dart';
+import 'package:laptrinhdidong/Group/Data/Movie_data.dart';
 import 'package:laptrinhdidong/Movie/models/item_model.dart';
 import 'package:laptrinhdidong/Movie/resources/movie_api_provider.dart';
 import 'package:laptrinhdidong/jsonphoto/Listdata.dart';

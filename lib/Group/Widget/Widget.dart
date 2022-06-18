@@ -1,29 +1,17 @@
 
 import 'package:flutter/material.dart';
-import 'package:laptrinhdidong/Group/Sao_detail.dart';
+import 'package:laptrinhdidong/Group/Sao/Sao_detail.dart';
 import 'package:laptrinhdidong/Group/Models/Sao_item.dart';
-import 'Movie_detail.dart';
-import 'Video_youtube.dart';
-import 'getMovie.dart';
-
-Widget movieLayout(data) {
-  if (data.results.length > 0) {
-    return Column(
-      children: [
-        for(int i =0; i<data.results.length;i++)
-          getMovie(data: data.results[i],)
-      ],
-    );
-  }
-  else
-    return Text("Không có kết quả",style: TextStyle(fontSize: 20,color: Colors.white),);
-}
+import '../Movie/Movie_detail.dart';
+import '../Movie/Video_youtube.dart';
 
 Widget getImage(String? url){
   if (url!= null)
     return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.contain,width: 200,height: 200,);
   else
-    return Center(
+    return Container(
+      width: 200,
+      height: 200,
       child: Icon(Icons.image),
     );
 }
@@ -87,7 +75,6 @@ Widget cardMovie(context,snapshot,i) {
               borderRadius: BorderRadius.circular(10)
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
@@ -96,7 +83,7 @@ Widget cardMovie(context,snapshot,i) {
               ),
               Text(
                 snapshot.data?.results[i].title.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black45,
                   fontSize: 12,
@@ -137,12 +124,6 @@ Widget cardMovie(context,snapshot,i) {
                       color: Colors.black45,
                       fontSize: 12,
                     ),
-                  ),
-                  const SizedBox(width: 3),
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 14,
                   ),
                 ],
               ),
