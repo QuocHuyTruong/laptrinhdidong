@@ -11,6 +11,7 @@ import '../Models/History_item.dart';
 import '../Models/Item_movie.dart';
 import '../Data/Movie_data.dart';
 import '../Widget/Widget.dart';
+import 'Video_youtube.dart';
 
 class Moviedetail extends StatefulWidget {
   final dataphim;
@@ -64,6 +65,7 @@ void write()async{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(222, 222 , 222, 1),
       body: SafeArea(
         top: false,
         bottom: false,
@@ -77,12 +79,12 @@ void write()async{
                   floating: false,
                   elevation: 0.0,
                   flexibleSpace: FlexibleSpaceBar(
-                      background: getImageDetail(datamovie.backdrop_path)),
+                      background: getImageDetail(datamovie.backdrop_path != null ? datamovie.backdrop_path : datamovie.poster_path),
+                  ),
                 ),
               ];
             },
             body:Container(
-              color: Color.fromRGBO(222, 222 , 222, 1),
               child: ListView(
                 children: [
                   Column(
@@ -93,11 +95,11 @@ void write()async{
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                          children: [
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
+                                children: [
                                   Text(
                                     datamovie.title!.toUpperCase(),
                                     style: Theme.of(context)
@@ -114,7 +116,7 @@ void write()async{
                                     children: <Widget>[
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
+                                        children:[
                                           Text(
                                             'Release date'.toUpperCase(),
                                             style: Theme.of(context)
@@ -138,7 +140,7 @@ void write()async{
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
+                                        children:[
                                           Text(
                                             'vote average'.toUpperCase(),
                                             style: Theme.of(context)
@@ -150,6 +152,11 @@ void write()async{
                                           ),
                                           Row(
                                             children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
                                               Icon(
                                                 Icons.star,
                                                 color: Colors.yellow,
@@ -189,27 +196,32 @@ void write()async{
                                           StreamBuilder<List<FavoriteSnapshot>>(
                                             stream: FavoriteSnapshot.getAllFavorite(),
                                             builder: (context,snapshot){
-                                              for(int i = 0;i<snapshot.data!.length;i++){
-                                                if(snapshot.data![i].favorite!.id == id){
-                                                  index = i;
+                                              if(snapshot.hasData){
+                                                for (int i = 0; i < snapshot.data!.length; i++) {
+                                                  if (snapshot.data![i].favorite!.id == id) {
+                                                    index = i;
+                                                  }
                                                 }
-                                              }
-                                              return
-                                                IconButton(
-                                                  icon: Icon(favorite ? Icons.star : Icons.star_border),
+                                                return IconButton(
+                                                  icon: Icon(favorite
+                                                      ? Icons.star
+                                                      : Icons.star_border),
                                                   color: Colors.brown,
-                                                  onPressed: (){
-                                                    if(favorite == true){
-                                                      snapshot.data![index].delete();
+                                                  onPressed: () {
+                                                    if (favorite == true) {
+                                                      snapshot.data![index]
+                                                          .delete();
                                                       favorite = false;
                                                     }
-                                                    else{
-                                                      Favorite fv = new Favorite(id: id,title: datamovie.title,url: datamovie.backdrop_path);
+                                                    else {
+                                                      Favorite fv = new Favorite(id: id, title: datamovie.title, url: datamovie.backdrop_path,overview: datamovie.overview,release_date: datamovie.release_date,vote_average: datamovie.vote_average);
                                                       FavoriteSnapshot.addNew(fv);
                                                       favorite = true;
                                                     }
                                                   },
                                                 );
+                                              }
+                                              else return Icon(Icons.star_border);
                                             },
                                           )
                                         ),
@@ -234,18 +246,26 @@ void write()async{
                               height: 10,
                             ),
                             Text(
-                              'Screenshots'.toUpperCase(),
+                              'Trailer'.toUpperCase(),
                               style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
                             ),
                             SizedBox(height: 10),
-                            Text(
-                              'Casts'.toUpperCase(),
-                              style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: FutureBuilder<Item_detail>(
+                                future: data,
+                                builder: (context,snapshot){
+                                  return
+                                  snapshot.hasData ?
+                                  trailerLayout(snapshot.data,context)
+                                  //VideoTrailer(url: snapshot.data!.results[0].key,title: snapshot.data!.results[0].name,type: snapshot.data!.results[0].type,)
+                                  : Center(child: CircularProgressIndicator(),);
+                                },
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),

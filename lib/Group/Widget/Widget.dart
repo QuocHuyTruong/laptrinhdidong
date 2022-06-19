@@ -36,7 +36,7 @@ Widget trailerLayout(data, context) {
     );
   }
   else
-    return Text("Không có trailer",style: TextStyle(fontSize: 20,color: Colors.white),);
+    return Text("Không có trailer",style: TextStyle(fontSize: 20,color: Colors.black45),);
 }
 
 Widget cardMovies(context,snapshot,i) => Row(
@@ -164,6 +164,28 @@ Widget cardSao(context,i) {
           ),
         ),
       );
+}
+
+Widget cardCategory(context, data){
+  return
+    FutureBuilder(
+        future: data,
+        builder: (_,snapshot){
+          return snapshot.hasData ?
+          ListView.builder(
+              itemCount: 10,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (_,index){
+                return Container(
+                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    width: 150,
+                    child: cardMovie(context,snapshot,index)
+                );
+              }
+          ) :
+          Center(child: CircularProgressIndicator(),);
+        }
+    );
 }
 
 

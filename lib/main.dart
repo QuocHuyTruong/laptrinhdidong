@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Group/Movie/Bottom_nav_bar.dart';
-import 'Group/Movie/testlayouy.dart';
 
 
 

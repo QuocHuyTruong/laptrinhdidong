@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class VideoTrailer extends StatefulWidget {
   VideoTrailer({this.url, this.title,this.type});
   final url;
@@ -55,7 +55,16 @@ class _VideoTrailerState extends State<VideoTrailer> {
         return Column(
           children: <Widget>[
             player,
-            Text(widget.title,style: TextStyle(color: Colors.black45,),),
+            GestureDetector(
+              onTap: () async{
+                final youtubeUrl =
+                    'https://www.youtube.com/embed/${widget.url}';
+                if (await canLaunch(youtubeUrl)) {
+                  await launch(youtubeUrl);
+                }
+              },
+              child: Text(widget.title,style: TextStyle(color: Colors.black45,),),
+            ),
             Text(widget.type,style: TextStyle(color: Colors.black45),),
             SizedBox(height: 40,),
           ],

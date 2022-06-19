@@ -1,21 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:laptrinhdidong/Group/Models/Item_movie.dart';
 
 class Favorite {
   final int? id;
   final String? title;
   final String? url;
-  Favorite({required this.id, this.title,this.url});
+  final String? overview;
+  final String? release_date;
+  final String? vote_average;
+
+  Favorite({required this.id, this.title,this.url,this.vote_average,this.release_date,this.overview});
   Favorite.fromJson(Map<String, dynamic> json):
         id = json['id']  ,
         title = json['title'],
-        url = json['url'];
+        url = json['url'],
+        overview = json['overview'],
+        release_date = json['release_date'],
+        vote_average = json['vote_average'];
   Map<String, dynamic> toJson()
   {
     return {
       'id': id,
       'title': title,
-      'url': url
+      'url': url,
+      'overview': overview,
+      'release_date': release_date,
+      'vote_average': vote_average
     };
   }
 }

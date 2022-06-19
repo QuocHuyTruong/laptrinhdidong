@@ -36,65 +36,70 @@ class _HistoryPageState extends State<HistoryPage> {
             return
               ListView.builder(
                 itemCount: data.list.length,
-                itemBuilder: (context, index)=>Slidable(
-                  child: Card(
-                    margin: EdgeInsets.all(10),
-                    color: Colors.white,
-                    shadowColor: Colors.blueGrey,
-                    elevation: 5,
-                    child: GestureDetector(
-                      onTap: () {
-                        Result result = new Result(backdrop_path: data.list[index].key, id: data.list[index].id, overview: data.list[index].overview, title: data.list[index].title, vote_average: data.list[index].vote_average, release_date:data.list[index].release_date);
-
-                        Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: data.list[index].id,dataphim: result,));
-                        Navigator.push(context, route);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                itemBuilder: (context, indexs){
+                  final index = data.list.length - 1 - indexs;
+                  // print(data.list.length);
+                  // print(indexs);
+                  return
+                    Slidable(
+                      child: Card(
+                        margin: EdgeInsets.all(10),
+                        color: Colors.white,
+                        shadowColor: Colors.blueGrey,
+                        elevation: 5,
+                        child: GestureDetector(
+                          onTap: () {
+                            Result result = new Result(backdrop_path: data.list[index].key, id: data.list[index].id, overview: data.list[index].overview, title: data.list[index].title, vote_average: data.list[index].vote_average, release_date:data.list[index].release_date);
+                            Route route = MaterialPageRoute(builder: (context) => Moviedetail(id: data.list[index].id,dataphim: result,));
+                            Navigator.push(context, route);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    child: getImageDetail(data.list[index].key)
+                                ),
+                              ),
+                              SizedBox(width: 5,),
+                              Expanded(
+                                child: Text(data.list[index].title,style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black45,
+                                  overflow: TextOverflow.ellipsis,
+                                ),),
+                              ),
+                              IconButton(
+                                onPressed:() {
+                                  context.read<QLHistory>().deleteHistory(index);
+                                },
+                                color:Colors.red.shade300 ,
+                                icon: Icon(Icons.delete),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: Container(
-                                width: 100,
-                                height: 100,
-                                child: getImageDetail(data.list[index].key)
-                            ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              context.read<QLHistory>().deleteHistory(index);
+                            },
+                            backgroundColor: Colors.red.shade300,
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: 'Xóa',
                           ),
-                          SizedBox(width: 5,),
-                          Expanded(
-                            child: Text(data.list[index].overview,style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black45,
-                              overflow: TextOverflow.ellipsis,
-                            ),),
-                          ),
-                          IconButton(
-                              onPressed:() {
-                                context.read<QLHistory>().deleteHistory(index);
-                              },
-                              color:Colors.red.shade300 ,
-                              icon: Icon(Icons.delete),
-                          )
                         ],
                       ),
-                    ),
-                  ),
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          context.read<QLHistory>().deleteHistory(index);
-                        },
-                        backgroundColor: Colors.red.shade300,
-                        foregroundColor: Colors.white,
-                        icon: Icons.delete,
-                        label: 'Xóa',
-                      ),
-                    ],
-                  ),
-                ),
+                    );
+                },
               );
           }
         },

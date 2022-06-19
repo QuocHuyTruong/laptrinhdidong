@@ -40,6 +40,7 @@ class _SearchMovieState extends State<SearchMovie> {
   Widget build(BuildContext context) {
     return
       Scaffold(
+        backgroundColor: Color.fromRGBO(233, 233 , 233, 1),
         body: SafeArea(
           top: true,
           child: Column(
@@ -75,7 +76,6 @@ class _SearchMovieState extends State<SearchMovie> {
                 ),
                 Expanded(
                   child: Container(
-                      color: Color.fromRGBO(233, 233 , 233, 1),
                       child: FutureBuilder<Item_movie>(
                         future: data,
                         builder: (context, snapshot){

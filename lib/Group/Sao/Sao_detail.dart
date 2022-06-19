@@ -29,6 +29,7 @@ class _SaodetailState extends State<Saodetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(222, 222 , 222, 1),
       body: LayoutBuilder(
           builder: (context,constraints){
             return Container(
@@ -56,7 +57,6 @@ class _SaodetailState extends State<Saodetail> {
                       )
                   ),
                   Container(
-                      color: Color.fromRGBO(233, 233 , 233, 1),
                     width: constraints.maxHeight,
                     height: 600,
                     child: FutureBuilder<Item_movie>(

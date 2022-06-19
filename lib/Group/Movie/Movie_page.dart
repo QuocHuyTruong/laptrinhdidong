@@ -57,196 +57,130 @@ class _MoviePageTrailerState extends State<MoviePageTrailer> with SingleTickerPr
           ),
         ],
       ),
-      body: Container(
-        color: Color.fromRGBO(233, 233 , 233, 1),
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        child: FutureBuilder<Item_movie>(
-          future: movie,
-          builder: (context, snapshot){
-            if(snapshot.hasError) {
-              print("Error" + movie.toString());
-              return Text("Error");
-            }
-            return snapshot.hasData
-                ? Column(
-                  children: [
-                    Container(
-                      child: CarouselSlider.builder(
-                        itemCount: 5,
-                        options: CarouselOptions(
-                          height: 200,
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                        ),
-                        itemBuilder: (context,index,realIndex){
-                          final image = snapshot.data!.results[index].poster_path;
-                          final title = snapshot.data!.results[index].title;
-                          return buildImageslider(image!,title!,index);
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: ListView(
-                            children: [
-                              Container(
-                                child:Align(
-                                  alignment:Alignment.centerLeft,
-                                  child: TabBar(
-                                    isScrollable: true,
-                                    controller: _tabController,
-                                    labelColor: Colors.black,
-                                    labelStyle: TextStyle(
-                                      color: Colors.black45,
-                                      fontWeight: FontWeight.bold
+      body: Scaffold(
+        backgroundColor: Color.fromRGBO(222, 222 , 222, 1),
+        body: Container(
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          child: FutureBuilder<Item_movie>(
+            future: movie,
+            builder: (context, snapshot){
+              if(snapshot.hasError) {
+                print("Error" + movie.toString());
+                return Text("Error");
+              }
+              return snapshot.hasData
+                  ? Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: ListView(
+                              children: [
+                                Container(
+                                  child: CarouselSlider.builder(
+                                    itemCount: 5,
+                                    options: CarouselOptions(
+                                      height: 200,
+                                      autoPlay: true,
+                                      enlargeCenterPage: true,
                                     ),
-                                    tabs: [
-                                      Tab(text: "Hoạt Hình",),
-                                      Tab(text: "Kinh dị",),
-                                      Tab(text: "Tình cảm",),
-                                      Tab(text: "Hài",),
+                                    itemBuilder: (context,index,realIndex){
+                                      final image = snapshot.data!.results[index].poster_path;
+                                      final title = snapshot.data!.results[index].title;
+                                      return buildImageslider(image!,title!);
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  child:Align(
+                                    alignment:Alignment.centerLeft,
+                                    child: TabBar(
+                                      isScrollable: true,
+                                      controller: _tabController,
+                                      labelColor: Colors.black,
+                                      labelStyle: TextStyle(
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                      tabs: [
+                                        Tab(text: "Hoạt Hình",),
+                                        Tab(text: "Kinh dị",),
+                                        Tab(text: "Tình cảm",),
+                                        Tab(text: "Hài",),
+                                      ],
+                                    ),
+                                  ) ,
+                                ),
+                                SizedBox(height: 5,),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 3, 0),
+                                  width: double.maxFinite,
+                                  height: 273,
+                                  child: TabBarView(
+                                    controller: _tabController,
+                                    children: [
+                                      cardCategory(context,cartoon),
+                                      cardCategory(context,horror),
+                                      cardCategory(context,romance),
+                                      cardCategory(context,comedy)
                                     ],
                                   ),
-                                ) ,
-                              ),
-                              SizedBox(height: 5,),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 3, 0),
-                                width: double.maxFinite,
-                                height: 273,
-                                child: TabBarView(
-                                  controller: _tabController,
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  'Sao hoolywood'.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black45,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                                  width: double.maxFinite,
+                                  height: 100,
+                                  child: ListView.builder(
+                                      itemCount: listSao.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (_,index){
+                                        return Container(
+                                            padding:EdgeInsets.fromLTRB(3, 0, 3, 0) ,
+                                            child: cardSao(context,index)
+                                        );
+                                      }
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  'Phim hot'.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                Column(
                                   children: [
-                                    FutureBuilder(
-                                      future: cartoon,
-                                        builder: (_,moviecartoon){
-                                          return moviecartoon.hasData ?
-                                           ListView.builder(
-                                              itemCount: 10,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (_,index){
-                                                return Container(
-                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                                    width: 150,
-                                                    child: cardMovie(context,moviecartoon,index)
-                                                );
-                                              }
-                                          ) :
-                                          Center(child: CircularProgressIndicator(),);
-                                        }
-                                    ),
-                                    FutureBuilder(
-                                        future: horror,
-                                        builder: (_,moviehorror){
-                                          return moviehorror.hasData ?
-                                          ListView.builder(
-                                              itemCount: 10,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (_,index){
-                                                return Container(
-                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                                    width: 150,
-                                                    child: cardMovie(context,moviehorror,index)
-                                                );
-                                              }
-                                          ) :
-                                          Center(child: CircularProgressIndicator(),);
-                                        }
-                                    ),
-                                    FutureBuilder(
-                                        future: romance,
-                                        builder: (_,movieromance){
-                                          return movieromance.hasData ?
-                                          ListView.builder(
-                                              itemCount: 10,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (_,index){
-                                                return Container(
-                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                                    width: 150,
-                                                    child: cardMovie(context,movieromance,index)
-                                                );
-                                              }
-                                          ) :
-                                          Center(child: CircularProgressIndicator(),);
-                                        }
-                                    ),
-                                    FutureBuilder(
-                                        future: comedy,
-                                        builder: (_,moviecomedy){
-                                          return moviecomedy.hasData ?
-                                          ListView.builder(
-                                              itemCount: 10,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (_,index){
-                                                return Container(
-                                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                                    width: 150,
-                                                    child:cardMovie(context,moviecomedy,index)
-                                                );
-                                              }
-                                          ) :
-                                          Center(child: CircularProgressIndicator(),);
-                                        }
-                                    ),
+                                    for(int i =0; i<snapshot.data!.results.length;i=i+3)
+                                      movilayout(context,snapshot,i)
                                   ],
                                 ),
-                              ),
-                              SizedBox(height: 5,),
-                              Text(
-                                'Sao hoolywood'.toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black45,
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                                width: double.maxFinite,
-                                height: 100,
-                                child: ListView.builder(
-                                    itemCount: listSao.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (_,index){
-                                      return Container(
-                                          padding:EdgeInsets.fromLTRB(3, 0, 3, 0) ,
-                                          child: cardSao(context,index)
-                                      );
-                                    }
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              Text(
-                                'Phim hot'.toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  for(int i =0; i<snapshot.data!.results.length;i=i+3)
-                                    movilayout(context,snapshot,i)
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                    ),
-                  ],
-                )
-                : Center(child: CircularProgressIndicator(),);
-          },
+                      ),
+                    ],
+                  )
+                  : Center(child: CircularProgressIndicator(),);
+            },
+          ),
         ),
       ),
     );
   }
 
-  Widget buildImageslider(String image,String title, int index) => Container(
+  Widget buildImageslider(String image,String title) => Container(
     decoration: BoxDecoration(
       color: Colors.grey.shade400,
       borderRadius: BorderRadius.circular(10)
