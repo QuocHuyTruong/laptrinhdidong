@@ -38,9 +38,7 @@ class _MoviedetailState extends State<Moviedetail> {
     FavoriteSnapshot.getAllFavorite().forEach((element) {
       for(int i = 0 ;i<element.length;i++){
         if(element[i].favorite!.id == id){
-          setState((){
             favorite = true;
-          });
         }
       }
     });

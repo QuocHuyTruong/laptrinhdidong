@@ -7,7 +7,7 @@ import '../Movie/Video_youtube.dart';
 
 Widget getImage(String? url){
   if (url!= null)
-    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.contain,width: 200,height: 200,);
+    return Image.network("https://image.tmdb.org/t/p/original/$url",fit: BoxFit.cover,width: 200,height: 200,);
   else
     return Container(
       width: 200,
@@ -70,16 +70,13 @@ Widget cardMovie(context,snapshot,i) {
           Navigator.push(context, route);
         },
         child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10)
-          ),
+          padding: EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: getImage(snapshot.data!.results[i].poster_path),
+                  borderRadius: BorderRadius.circular(10),
+                  child: getImage(snapshot.data!.results[i].poster_path)
               ),
               Text(
                 snapshot.data?.results[i].title.toUpperCase(),

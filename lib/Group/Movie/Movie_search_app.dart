@@ -21,7 +21,7 @@ class _SearchMovieState extends State<SearchMovie> {
     data = fetchSearchMovie("trailer");
   }
 
-  void _incrementCounter(){
+  void _search(){
     if(txtName.text.isNotEmpty){
       setState((){
         data = fetchSearchMovie(txtName.text);
@@ -47,7 +47,7 @@ class _SearchMovieState extends State<SearchMovie> {
               children: [
                 TextField(
                   onSubmitted: (value) {
-                    _incrementCounter();
+                    _search();
                   },
                   controller: txtName,
                   decoration: InputDecoration(
